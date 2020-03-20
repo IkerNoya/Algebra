@@ -84,12 +84,12 @@ namespace CustomMath
 
         public static Vec3 operator -(Vec3 leftV3, Vec3 rightV3)
         {
-            throw new NotImplementedException();
+            return new Vec3(leftV3.x - rightV3.x, leftV3.y - rightV3.y, leftV3.z - rightV3.z);
         }
 
         public static Vec3 operator -(Vec3 v3)
         {
-            throw new NotImplementedException();
+            return new Vec3(-v3.x, -v3.y, -v3.z);
         }
 
         public static Vec3 operator *(Vec3 v3, float scalar)

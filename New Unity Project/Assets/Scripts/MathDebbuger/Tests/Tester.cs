@@ -8,15 +8,19 @@ public class Tester : MonoBehaviour
     void Start()
     {
         VectorDebugger.EnableCoordinates();
-        List<Vector3> vectors = new List<Vector3>();
-        vectors.Add(new Vec3(10.0f, 0.0f, 0.0f));
-        vectors.Add(new Vec3(10.0f, 10.0f, 0.0f));
-        vectors.Add(new Vec3(20.0f, 10.0f, 0.0f));
-        vectors.Add(new Vec3(20.0f, 20.0f, 0.0f));
-        VectorDebugger.AddVectorsSecuence(vectors, false, Color.red, "secuencia");
-        VectorDebugger.AddVector(new Vector3(10, 10, 0), Color.blue, "elAzul");
-        VectorDebugger.AddVector(Vector3.down * 7, Color.green, "elVerde");
+
+        Vec3 test = new Vec3(10.0f, 10.0f, 10.0f);
+        Vec3 test2 = new Vec3(7.0f, 7.0f, 7.0f);
+        Vec3 resta = new Vec3(test - test2);
+        Vec3 invertir = new Vec3(-resta);
+        VectorDebugger.AddVector(test, Color.red, "red one");
+        VectorDebugger.AddVector(test2, Color.blue, "blue one");
+        VectorDebugger.AddVector(resta, Color.green, "green one");
+        VectorDebugger.AddVector(invertir, Color.yellow, "yellow one");
+        Debug.Log((resta).ToString());
+        Debug.Log((invertir).ToString());
         VectorDebugger.EnableEditorView();
+
     }
 
     // Update is called once per frame
