@@ -15,16 +15,19 @@ public class Tester : MonoBehaviour
         Vec3 invertir = new Vec3(-resta);
         Vec3 mult = new Vec3(test * 2.0f);
         Vec3 mult2 = new Vec3(2.0f * test);
+        Vec3 Div = new Vec3(test / 2.0f);
         VectorDebugger.AddVector(test, Color.red, "red one");
         VectorDebugger.AddVector(test2, Color.blue, "blue one");
         VectorDebugger.AddVector(resta, Color.green, "green one");
         VectorDebugger.AddVector(invertir, Color.yellow, "yellow one");
         VectorDebugger.AddVector(mult, Color.gray, "gray one");
         VectorDebugger.AddVector(mult2, Color.black, "black one");
+        VectorDebugger.AddVector(Div, Color.magenta, "magenta one");
         Debug.Log((resta).ToString());
         Debug.Log((invertir).ToString());
         Debug.Log((mult).ToString());
         Debug.Log((mult2).ToString());
+        Debug.Log((Div).ToString());
         VectorDebugger.EnableEditorView();
 
     }
