@@ -9,9 +9,9 @@ namespace CustomMath
         public float y;
         public float z;
 
-        public float sqrMagnitude { get { throw new NotImplementedException(); } }
-        public Vector3 normalized { get { throw new NotImplementedException(); } }
-        public float magnitude { get { throw new NotImplementedException(); } }
+        public float sqrMagnitude { get { return (x * x + y * y + z * z); } }
+        public Vector3 normalized { get { return new Vec3(x / magnitude, y / magnitude, z / magnitude); } }
+        public float magnitude { get { return Mathf.Sqrt(x * x + y * y + z * z); } }
         #endregion
 
         #region Default Values
@@ -112,7 +112,7 @@ namespace CustomMath
 
         public static implicit operator Vector2(Vec3 v2)
         {
-            throw new NotImplementedException();
+            return new Vector2(v2.x, v2.y);
         }
         #endregion
 
@@ -173,15 +173,19 @@ namespace CustomMath
         {
             throw new NotImplementedException();
         }
-        public void Set(float newX, float newY, float newZ)
+        public void Set(float newX, float newY, float newZ) //hacer
         {
             throw new NotImplementedException();
         }
-        public void Scale(Vec3 scale)
+        public void Scale(Vec3 scale) // hacer
         {
             throw new NotImplementedException();
         }
-        public void Normalize()
+        public void Normalize() // hacer
+        {
+            throw new NotImplementedException();
+        }
+        public static void Normalize(Vec3 value) // hacer
         {
             throw new NotImplementedException();
         }
