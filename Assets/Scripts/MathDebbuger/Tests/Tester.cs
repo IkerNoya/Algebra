@@ -16,6 +16,7 @@ public class Tester : MonoBehaviour
         Vec3 mult = new Vec3(test * 2.0f);
         Vec3 mult2 = new Vec3(2.0f * test);
         Vec3 Div = new Vec3(test / 2.0f);
+        Vec3 Cruz = Vec3.Cross(test, Cortar);
         VectorDebugger.AddVector(test, Color.red, "red one");
         VectorDebugger.AddVector(test2, Color.blue, "blue one");
         VectorDebugger.AddVector(resta, Color.green, "green one");
@@ -24,11 +25,13 @@ public class Tester : MonoBehaviour
         VectorDebugger.AddVector(mult2, Color.black, "black one");
         VectorDebugger.AddVector(Div, Color.magenta, "magenta one");
         VectorDebugger.AddVector(Cortar, Color.cyan, "cyan one");
+        VectorDebugger.AddVector(Cruz, Color.white, "White one");
         Debug.Log((resta).ToString());
         Debug.Log((invertir).ToString());
         Debug.Log((mult).ToString());
         Debug.Log((mult2).ToString());
         Debug.Log((Div).ToString());
+        Debug.Log((Cruz).ToString());
         VectorDebugger.EnableEditorView();
 
     }
