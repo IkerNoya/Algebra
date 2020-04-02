@@ -178,11 +178,15 @@ namespace CustomMath
         }
         public void Set(float newX, float newY, float newZ) //hacer
         {
-            throw new NotImplementedException();
+            x = newX;
+            y = newY;
+            z = newZ;
         }
         public void Scale(Vec3 scale) // hacer
         {
-            throw new NotImplementedException();
+            x = x * scale.x;
+            y = y * scale.y;
+            z = z * scale.z;
         }
         public void Normalize() // hacer
         {

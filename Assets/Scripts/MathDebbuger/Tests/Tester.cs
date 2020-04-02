@@ -5,12 +5,12 @@ using CustomMath;
 
 public class Tester : MonoBehaviour
 {
+    Vec3 test = new Vec3(10.0f, 10.0f, 10.0f);
+    Vec3 test2 = new Vec3(7.0f, 7.0f, 7.0f);
+    Vec3 Cortar = new Vec3(-10.0f, 10.0f, 10.0f);
     void Start()
     {
         VectorDebugger.EnableCoordinates();
-
-        Vec3 test = new Vec3(10.0f, 10.0f, 10.0f);
-        Vec3 test2 = new Vec3(7.0f, 7.0f, 7.0f);
         Vec3 resta = new Vec3(test - test2);
         Vec3 invertir = new Vec3(-resta);
         Vec3 mult = new Vec3(test * 2.0f);
@@ -23,6 +23,7 @@ public class Tester : MonoBehaviour
         VectorDebugger.AddVector(mult, Color.gray, "gray one");
         VectorDebugger.AddVector(mult2, Color.black, "black one");
         VectorDebugger.AddVector(Div, Color.magenta, "magenta one");
+        VectorDebugger.AddVector(Cortar, Color.cyan, "cyan one");
         Debug.Log((resta).ToString());
         Debug.Log((invertir).ToString());
         Debug.Log((mult).ToString());
@@ -42,6 +43,12 @@ public class Tester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             VectorDebugger.TurnOnVector("elAzul");
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            test.Set(40,40,40);
+            Debug.Log("Cambio de componentes");
+            VectorDebugger.AddVector(test, Color.cyan, "red one");
         }
     }
 }
