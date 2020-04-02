@@ -142,7 +142,7 @@ namespace CustomMath
         }
         public static float Distance(Vec3 a, Vec3 b)
         {
-            return ((b.x - a.x) + (b.y - a.y) + (b.z - a.z)) / 2;
+            return (((b.x - a.x)* (b.x - a.x)) + ((b.y - a.y) * (b.x - a.x)) + ((b.z - a.z) * (b.x - a.x))) / 2;
         }
         public static float Dot(Vec3 a, Vec3 b)
         {
@@ -150,7 +150,7 @@ namespace CustomMath
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
-            throw new NotImplementedException();
+            return new Vec3((b-a)*t);
         }
         public static Vec3 LerpUnclamped(Vec3 a, Vec3 b, float t)
         {
