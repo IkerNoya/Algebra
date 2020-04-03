@@ -5,33 +5,30 @@ using CustomMath;
 
 public class Tester : MonoBehaviour
 {
-    Vec3 test = new Vec3(10.0f, 10.0f, 10.0f);
-    Vec3 test2 = new Vec3(7.0f, 7.0f, 7.0f);
-    Vec3 Cortar = new Vec3(-10.0f, 10.0f, 10.0f);
+    public enum Ejercicio
+    {
+        uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve,diez
+    }
+
+    public Ejercicio ejercicio;
+    public Vector3 a;
+    public Vector3 b;
+    Vec3 result;
+    Vec3 multiplicacion;
     void Start()
     {
         VectorDebugger.EnableCoordinates();
-        Vec3 resta = new Vec3(test - test2);
-        Vec3 invertir = new Vec3(-resta);
-        Vec3 mult = new Vec3(test * 2.0f);
-        Vec3 mult2 = new Vec3(2.0f * test);
-        Vec3 Div = new Vec3(test / 2.0f);
-        Vec3 Cruz = Vec3.Cross(test, Cortar);
-        VectorDebugger.AddVector(test, Color.red, "red one");
-        VectorDebugger.AddVector(test2, Color.blue, "blue one");
-        VectorDebugger.AddVector(resta, Color.green, "green one");
-        VectorDebugger.AddVector(invertir, Color.yellow, "yellow one");
-        VectorDebugger.AddVector(mult, Color.gray, "gray one");
-        VectorDebugger.AddVector(mult2, Color.black, "black one");
-        VectorDebugger.AddVector(Div, Color.magenta, "magenta one");
-        VectorDebugger.AddVector(Cortar, Color.cyan, "cyan one");
-        VectorDebugger.AddVector(Cruz, Color.white, "White one");
-        Debug.Log((resta).ToString());
-        Debug.Log((invertir).ToString());
-        Debug.Log((mult).ToString());
-        Debug.Log((mult2).ToString());
-        Debug.Log((Div).ToString());
-        Debug.Log((Cruz).ToString());
+
+
+
+        Debug.Log(a.ToString());
+        VectorDebugger.AddVector(a, Color.green, "La verde");
+        Debug.Log(b.ToString());
+        VectorDebugger.AddVector(b, Color.blue, "La azul");
+        Debug.Log(result.ToString());
+        VectorDebugger.AddVector(result, Color.red, "La roja");
+
+
         VectorDebugger.EnableEditorView();
 
     }
@@ -39,6 +36,11 @@ public class Tester : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vec3 A = new Vec3(a);
+        Vec3 B = new Vec3(b);
+        multiplicacion = new Vec3(a);
+        multiplicacion.Scale(B);
+
         if (Input.GetKeyDown(KeyCode.O))
         {
             VectorDebugger.TurnOffVector("elAzul");
@@ -47,11 +49,43 @@ public class Tester : MonoBehaviour
         {
             VectorDebugger.TurnOnVector("elAzul");
         }
-        if (Input.GetKeyDown(KeyCode.A))
+
+        VectorDebugger.UpdatePosition("La verde", A);
+        VectorDebugger.UpdatePosition("La azul", B);
+        switch (ejercicio) 
         {
-            test.Set(40,40,40);
-            Debug.Log("Cambio de componentes");
-            VectorDebugger.AddVector(test, Color.cyan, "red one");
-        }
+            case Ejercicio.uno:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+            case Ejercicio.dos:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(b - a));
+                break;
+            case Ejercicio.tres:
+                result = multiplicacion;
+                VectorDebugger.UpdatePosition("La roja", new Vec3(multiplicacion));
+                break;
+            case Ejercicio.cuatro:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(Vec3.Cross(A,B)));
+                break;
+            case Ejercicio.cinco:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(Vec3.Lerp()));
+                break;
+            case Ejercicio.seis:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+            case Ejercicio.siete:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+            case Ejercicio.ocho:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+            case Ejercicio.nueve:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+            case Ejercicio.diez:
+                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                break;
+
+        } 
     }
 }
