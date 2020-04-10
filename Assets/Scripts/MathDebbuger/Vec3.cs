@@ -150,7 +150,16 @@ namespace CustomMath
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
-            return new Vec3((b-a)*t);
+            Vec3 newVec = Vec3.One;
+            if (t < 1)
+            {
+                newVec = new Vec3(((b-a)*t+a));
+            }
+            else
+            {
+                t = 1.0f;
+            }
+            return newVec;
         }
         public static Vec3 LerpUnclamped(Vec3 a, Vec3 b, float t)
         {
@@ -158,7 +167,14 @@ namespace CustomMath
         }
         public static Vec3 Max(Vec3 a, Vec3 b)
         {
-            throw new NotImplementedException();
+            Vec3 c;
+            if (a.x > b.x) c.x = a.x;
+            else c.x = b.x;
+            if (a.y > b.y) c.y = a.y;
+            else c.y = b.y;
+            if (a.z > b.z) c.z = a.z;
+            else c.z = b.z;
+            return c;
         }
         public static Vec3 Min(Vec3 a, Vec3 b)
         {

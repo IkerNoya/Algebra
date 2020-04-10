@@ -40,6 +40,7 @@ public class Tester : MonoBehaviour
         Vec3 B = new Vec3(b);
         multiplicacion = new Vec3(a);
         multiplicacion.Scale(B);
+        
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -68,10 +69,10 @@ public class Tester : MonoBehaviour
                 VectorDebugger.UpdatePosition("La roja", new Vec3(Vec3.Cross(A,B)));
                 break;
             case Ejercicio.cinco:
-                VectorDebugger.UpdatePosition("La roja", new Vec3(Vec3.Lerp()));
+                VectorDebugger.UpdatePosition("La roja", Vec3.Lerp(B, A, 0.05f));
                 break;
             case Ejercicio.seis:
-                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                VectorDebugger.UpdatePosition("La roja", Vec3.Max(A,B));
                 break;
             case Ejercicio.siete:
                 VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
