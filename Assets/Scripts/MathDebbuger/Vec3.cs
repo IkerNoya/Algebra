@@ -146,7 +146,7 @@ namespace CustomMath
         }
         public static float Dot(Vec3 a, Vec3 b)
         {
-            return Mathf.Sqrt(a.x + a.y + a.z) + Mathf.Sqrt(b.x + b.y + b.z) * Mathf.Cos(Vec3.Angle(a, b));
+            return (a.x*b.x)+(a.y*b.y)+(a.z*b.z);
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
@@ -188,11 +188,12 @@ namespace CustomMath
         }
         public static Vec3 Project(Vec3 vector, Vec3 onNormal)
         {
-            throw new NotImplementedException();
+            return (Vec3.Dot(vector, onNormal)/Vec3.Dot(vector, vector)) * vector;
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-            return inDirection - 2 * (Vec3.Dot(inDirection, inNormal)) * inNormal;
+            Vec3 normal = new Vec3(inNormal.normalized);
+            return inDirection - 2 * (Vec3.Dot(inDirection, normal)) * normal;
         }
         public void Set(float newX, float newY, float newZ) //hacer
         {

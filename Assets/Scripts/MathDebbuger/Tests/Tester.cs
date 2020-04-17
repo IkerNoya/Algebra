@@ -79,13 +79,13 @@ public class Tester : MonoBehaviour
                 VectorDebugger.UpdatePosition("La roja", Vec3.Max(A,B));
                 break;
             case Ejercicio.siete:
-                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                VectorDebugger.UpdatePosition("La roja", Vec3.Project(A,B));
                 break;
             case Ejercicio.ocho:
                 VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
                 break;
             case Ejercicio.nueve:
-                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                VectorDebugger.UpdatePosition("La roja", Vec3.Reflect(A,B));
                 break;
             case Ejercicio.diez:
                 VectorDebugger.UpdatePosition("La roja", Vec3.LerpUnclamped(A,B,timer2));
