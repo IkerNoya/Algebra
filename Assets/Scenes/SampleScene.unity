@@ -240,9 +240,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5899b3b1fa657b44810154516827330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ejercicio: 4
-  a: {x: 1, y: 1, z: 1}
-  b: {x: 3, y: 3, z: 3}
+  ejercicio: 6
+  a: {x: 0, y: 3, z: 0}
+  b: {x: 3, y: 0, z: 0}
 --- !u!4 &503643719
 Transform:
   m_ObjectHideFlags: 0

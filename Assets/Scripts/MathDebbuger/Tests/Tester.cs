@@ -15,6 +15,7 @@ public class Tester : MonoBehaviour
     public Vector3 b;
     Vec3 result;
     Vec3 multiplicacion;
+    float timer = 0;
     void Start()
     {
         VectorDebugger.EnableCoordinates();
@@ -40,7 +41,8 @@ public class Tester : MonoBehaviour
         Vec3 B = new Vec3(b);
         multiplicacion = new Vec3(a);
         multiplicacion.Scale(B);
-        
+        if (timer >= 1.0f) timer = 0;
+        timer += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -69,7 +71,7 @@ public class Tester : MonoBehaviour
                 VectorDebugger.UpdatePosition("La roja", new Vec3(Vec3.Cross(A,B)));
                 break;
             case Ejercicio.cinco:
-                VectorDebugger.UpdatePosition("La roja", Vec3.Lerp(B, A, 0.05f));
+                VectorDebugger.UpdatePosition("La roja", Vec3.Lerp(B, A, timer));
                 break;
             case Ejercicio.seis:
                 VectorDebugger.UpdatePosition("La roja", Vec3.Max(A,B));
