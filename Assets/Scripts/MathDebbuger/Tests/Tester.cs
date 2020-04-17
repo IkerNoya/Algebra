@@ -16,6 +16,7 @@ public class Tester : MonoBehaviour
     Vec3 result;
     Vec3 multiplicacion;
     float timer = 0;
+    float timer2 = 0;
     void Start()
     {
         VectorDebugger.EnableCoordinates();
@@ -43,6 +44,7 @@ public class Tester : MonoBehaviour
         multiplicacion.Scale(B);
         if (timer >= 1.0f) timer = 0;
         timer += Time.deltaTime;
+        timer2 += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -86,7 +88,7 @@ public class Tester : MonoBehaviour
                 VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
                 break;
             case Ejercicio.diez:
-                VectorDebugger.UpdatePosition("La roja", new Vec3(a + b));
+                VectorDebugger.UpdatePosition("La roja", Vec3.LerpUnclamped(A,B,timer2));
                 break;
 
         } 
