@@ -2,6 +2,7 @@
 using UnityEngine;
 using MathDebbuger;
 using CustomMath;
+using plane;
 
 public class Tester : MonoBehaviour
 {
@@ -17,12 +18,23 @@ public class Tester : MonoBehaviour
     Vec3 multiplicacion;
     float timer = 0;
     float timer2 = 0;
+    Planes planes;
+    Plane plane;
+    public Vector3 planeA = new Vector3(0, 0, 5);
+    public Vector3 planeB = new Vector3(10, 0, 0);
+    public Vector3 planeC = new Vector3(0, 0, 0);
+    public Vector3 planeD = new Vector3(0, 10, 0);
+    public Vector3 planeE = new Vector3(0, 0, 0);
+    public Vector3 planeF = new Vector3(0, 0, 0);
     void Start()
     {
         VectorDebugger.EnableCoordinates();
 
 
-
+        plane = new Plane(planeA, planeB, planeC);
+        planes = new Planes(planeA, planeB, planeC);
+        Debug.Log(plane.ToString());
+        Debug.Log(planes.ToString());
         Debug.Log(a.ToString());
         VectorDebugger.AddVector(a, Color.green, "La verde");
         Debug.Log(b.ToString());
@@ -40,6 +52,8 @@ public class Tester : MonoBehaviour
     {
         Vec3 A = new Vec3(a);
         Vec3 B = new Vec3(b);
+        DrawPlane(planeA, planeB, planeC, 10.0f, Color.red, 10.0f, true);
+        DrawPlane(planeD, planeE, planeF, 10.0f, Color.red, 10.0f, true);
         multiplicacion = new Vec3(a);
         multiplicacion.Scale(B);
         if (timer >= 1.0f) timer = 0;
@@ -92,5 +106,40 @@ public class Tester : MonoBehaviour
                 break;
 
         } 
+    }
+    public static void DrawPlane(Vector3 a, Vector3 b, Vector3 c, float size,
+    Color color, float duration = 0f, bool depthTest = true)
+    {
+
+        var plane = new Plane(a, b, c);
+        var centroid = (a + b + c) / 3f;
+
+        DrawPlaneAtPoint(plane, centroid, size, color, duration, depthTest);
+    }
+
+    // Draws the portion of the plane closest to the provided point, 
+    // with an altitude line colour-coding whether the point is in front (cyan)
+    // or behind (red) the provided plane.
+    public static void DrawPlaneNearPoint(Plane plane, Vector3 point, float size, Color color, float duration = 0f, bool depthTest = true)
+    {
+        var closest = plane.ClosestPointOnPlane(point);
+        Color side = plane.GetSide(point) ? Color.cyan : Color.red;
+        Debug.DrawLine(point, closest, side, duration, depthTest);
+
+        DrawPlaneAtPoint(plane, closest, size, color, duration, depthTest);
+    }
+    static void DrawPlaneAtPoint(Plane plane, Vector3 center, float size, Color color, float duration, bool depthTest)
+    {
+        var basis = Quaternion.LookRotation(plane.normal);
+        var scale = Vector3.one * size / 10f;
+
+        var right = Vector3.Scale(basis * Vector3.right, scale);
+        var up = Vector3.Scale(basis * Vector3.up, scale);
+
+        for (int i = -5; i <= 5; i++)
+        {
+            Debug.DrawLine(center + right * i - up * 5, center + right * i + up * 5, color, duration, depthTest);
+            Debug.DrawLine(center + up * i - right * 5, center + up * i + right * 5, color, duration, depthTest);
+        }
     }
 }
