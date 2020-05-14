@@ -14,7 +14,7 @@ namespace plane
         public Planes(Vector3 inNormal, Vector3 inPoint)
         {
             normal = inNormal;
-            distance = (normal.x * inPoint.x + normal.y * inPoint.y + normal.z * inPoint.z) / Vector3.Magnitude(normal);
+            distance = Mathf.Abs(((normal.x * inPoint.x) + (normal.y * inPoint.y) + (normal.z * inPoint.z))) / Vector3.Magnitude(normal);
         }
         
         public Planes(Vector3 a, Vector3 b, Vector3 c)
@@ -24,10 +24,9 @@ namespace plane
             // ecuacion de plano = A(x-x1) + B(y-y1) + C(z-z1) + D = 0 ------> n(x1,y1,z1) "pista"
             // dis de Po al plano: Ax + Bx + Cx + D = 0 ----------> ABC=Plano y xyz=Po
             //nuevo Vec w = new Vec3(wx-ax, wy-ay, wz-az)
-            // vec3.Dot(W,normalAux) ----->
-            Vec3 normalAux = Vec3.Cross(v, u);
+            // vec3.Dot(W,normalAux)
             normal = Vec3.Cross(v, u).normalized;
-            distance = (normal.x * a.x + normal.y * a.y + normal.z * a.z) / Vector3.Magnitude(normal);
+            distance = Mathf.Abs(((normal.x * a.x) + (normal.y * a.y) + (normal.z * a.z))) / Vector3.Magnitude(normal);
         }
 
         public Vector3 normal { get; set; }
@@ -54,12 +53,20 @@ namespace plane
   
         public float GetDistanceToPoint(Vector3 point)
         {
-            return  (normal.x * point.x + normal.y * point.y + normal.z * point.z) / Vector3.Magnitude(normal);
+            return Mathf.Abs(((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z))) / Vector3.Magnitude(normal);
         }
   
         public bool GetSide(Vector3 point)
         {
-            throw new NotImplementedException();
+            float tempDistance = GetDistanceToPoint(point);
+            if (tempDistance > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public bool Raycast(Ray ray, out float enter)
         {

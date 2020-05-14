@@ -20,18 +20,19 @@ public class Tester : MonoBehaviour
     float timer2 = 0;
     Planes planes;
     Plane plane;
-    public Vector3 planeA = new Vector3(0, 0, 5);
-    public Vector3 planeB = new Vector3(10, 0, 0);
-    public Vector3 planeC = new Vector3(0, 0, 0);
+    public Vector3 planeA;
+    public Vector3 planeB;
+    public Vector3 planeC;
+    public Vector3 prueba = -Vector3.one;
     void Start()
     {
         VectorDebugger.EnableCoordinates();
-
+        planeA = new Vector3(10, 20, 5);
+        planeB = new Vector3(10, 0, 0);
+        planeC = new Vector3(0, 4, 3);
 
         plane = new Plane(planeA, planeB, planeC);
         planes = new Planes(planeA, planeB, planeC);
-        Debug.Log(plane.ToString());
-        Debug.Log(planes.ToString());
         Debug.Log(a.ToString());
         VectorDebugger.AddVector(a, Color.green, "La verde");
         Debug.Log(b.ToString());
@@ -49,6 +50,10 @@ public class Tester : MonoBehaviour
     {
         Vec3 A = new Vec3(a);
         Vec3 B = new Vec3(b);
+        Debug.Log(plane.ToString());
+        Debug.Log(planes.ToString());
+        Debug.Log(plane.GetDistanceToPoint(prueba));
+        Debug.Log(planes.GetDistanceToPoint(prueba));
         multiplicacion = new Vec3(a);
         multiplicacion.Scale(B);
         if (timer >= 1.0f) timer = 0;
