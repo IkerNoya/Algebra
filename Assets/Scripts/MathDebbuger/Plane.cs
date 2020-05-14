@@ -27,7 +27,7 @@ namespace plane
             // vec3.Dot(W,normalAux) ----->
             Vec3 normalAux = Vec3.Cross(v, u);
             normal = Vec3.Cross(v, u).normalized;
-            distance = (normalAux.x * a.x + normalAux.y * a.y + a.z * a.z) / Vector3.Magnitude(normalAux);
+            distance = (normal.x * a.x + normal.y * a.y + normal.z * a.z) / Vector3.Magnitude(normal);
         }
 
         public Vector3 normal { get; set; }
@@ -54,7 +54,7 @@ namespace plane
   
         public float GetDistanceToPoint(Vector3 point)
         {
-            throw new NotImplementedException();
+            return  (normal.x * point.x + normal.y * point.y + normal.z * point.z) / Vector3.Magnitude(normal);
         }
   
         public bool GetSide(Vector3 point)

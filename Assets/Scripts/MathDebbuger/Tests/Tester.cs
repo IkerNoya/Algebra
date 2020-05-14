@@ -23,9 +23,6 @@ public class Tester : MonoBehaviour
     public Vector3 planeA = new Vector3(0, 0, 5);
     public Vector3 planeB = new Vector3(10, 0, 0);
     public Vector3 planeC = new Vector3(0, 0, 0);
-    public Vector3 planeD = new Vector3(0, 10, 0);
-    public Vector3 planeE = new Vector3(0, 0, 0);
-    public Vector3 planeF = new Vector3(0, 0, 0);
     void Start()
     {
         VectorDebugger.EnableCoordinates();
@@ -52,8 +49,6 @@ public class Tester : MonoBehaviour
     {
         Vec3 A = new Vec3(a);
         Vec3 B = new Vec3(b);
-        DrawPlane(planeA, planeB, planeC, 10.0f, Color.red, 10.0f, true);
-        DrawPlane(planeD, planeE, planeF, 10.0f, Color.red, 10.0f, true);
         multiplicacion = new Vec3(a);
         multiplicacion.Scale(B);
         if (timer >= 1.0f) timer = 0;
