@@ -48,6 +48,7 @@ namespace plane
         public void Flip()
         {
             normal = -normal;
+            distance = -distance;
         }
 
   
@@ -75,7 +76,14 @@ namespace plane
         
         public bool SameSide(Vector3 inPt0, Vector3 inPt1)
         {
-            throw new NotImplementedException();
+            if (GetSide(inPt0)==true && GetSide(inPt1)==true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
    
         public void Set3Points(Vector3 a, Vector3 b, Vector3 c)
