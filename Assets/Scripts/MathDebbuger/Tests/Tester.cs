@@ -28,8 +28,8 @@ public class Tester : MonoBehaviour
     {
         VectorDebugger.EnableCoordinates();
         planeA = new Vector3(10, 20, 5);
-        planeB = new Vector3(10, 0, 0);
-        planeC = new Vector3(0, 4, 3);
+        planeB = new Vector3(10, 0, 50);
+        planeC = new Vector3(1, 20, 3);
 
         plane = new Plane(planeA, planeB, planeC);
         planes = new Planes(planeA, planeB, planeC);
@@ -68,7 +68,7 @@ public class Tester : MonoBehaviour
         {
             VectorDebugger.TurnOnVector("elAzul");
         }
-
+        DrawPlane(planeA, planeB, planeC, 10, Color.red, 10.0f, true);
         VectorDebugger.UpdatePosition("La verde", A);
         VectorDebugger.UpdatePosition("La azul", B);
         switch (ejercicio) 

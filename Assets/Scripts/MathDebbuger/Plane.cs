@@ -13,7 +13,7 @@ namespace plane
 
         public Planes(Vector3 inNormal, Vector3 inPoint)
         {
-            normal = inNormal;
+            normal = inNormal.normalized;
             distance = Mathf.Abs(((normal.x * inPoint.x) + (normal.y * inPoint.y) + (normal.z * inPoint.z))) / Vector3.Magnitude(normal);
         }
         
@@ -53,7 +53,7 @@ namespace plane
   
         public float GetDistanceToPoint(Vector3 point)
         {
-            return Mathf.Abs(((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z))) / Vector3.Magnitude(normal);
+            return Mathf.Abs(((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z))) / Vector3.Magnitude(normal) + distance;
         }
   
         public bool GetSide(Vector3 point)
