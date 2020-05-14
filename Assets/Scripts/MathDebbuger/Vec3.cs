@@ -180,7 +180,14 @@ namespace CustomMath
         }
         public static Vec3 Min(Vec3 a, Vec3 b)
         {
-            throw new NotImplementedException();
+            Vec3 c;
+            if (a.x < b.x) c.x = a.x;
+            else c.x = b.x;
+            if (a.y < b.y) c.y = a.y;
+            else c.y = b.y;
+            if (a.z < b.z) c.z = a.z;
+            else c.z = b.z;
+            return c;
         }
         public static float SqrMagnitude(Vec3 vector)
         {
