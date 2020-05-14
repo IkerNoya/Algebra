@@ -48,7 +48,7 @@ namespace plane
  
         public void Flip()
         {
-            throw new NotImplementedException();
+            normal = -normal;
         }
 
   
