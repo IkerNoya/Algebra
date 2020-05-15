@@ -29,10 +29,10 @@ namespace plane
             distance = Mathf.Abs(((normal.x * a.x) + (normal.y * a.y) + (normal.z * a.z))) / Vector3.Magnitude(normal);
         }
 
-        public Vector3 normal { get; set; }
-        public float distance { get; set; }
+        public Vector3 normal { get { return normal; } set { normal=value; } }
+        public float distance { get {return distance; } set {distance=value; } }
        
-        public Plane flipped { get; }
+        public Plane flipped { get {return flipped; } }
 
 
         public static Plane Translate(Plane plane, Vector3 translation)
@@ -60,7 +60,6 @@ namespace plane
         public bool GetSide(Vector3 point)
         {
             float tempDistance = GetDistanceToPoint(point);
-
 
             if (tempDistance > 0)
             {
@@ -90,12 +89,17 @@ namespace plane
    
         public void Set3Points(Vector3 a, Vector3 b, Vector3 c)
         {
-            throw new NotImplementedException();
+            Vec3 v = new Vec3(b - a);
+            Vec3 u = new Vec3(c - a);
+            normal = Vec3.Cross(v, u).normalized;
+            distance = Mathf.Abs(((normal.x * a.x) + (normal.y * a.y) + (normal.z * a.z))) / Vector3.Magnitude(normal);
         }
   
         public void SetNormalAndPosition(Vector3 inNormal, Vector3 inPoint)
         {
-            throw new NotImplementedException();
+            normal = inNormal.normalized;
+            distance = Mathf.Abs(((inNormal.x * inPoint.x) + (inNormal.y * inPoint.y) + (inNormal.z * inPoint.z))) / Vector3.Magnitude(inNormal);
+
         }
         public override string ToString()
         {
