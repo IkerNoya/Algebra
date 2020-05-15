@@ -29,10 +29,10 @@ namespace plane
             distance = Mathf.Abs(((normal.x * a.x) + (normal.y * a.y) + (normal.z * a.z))) / Vector3.Magnitude(normal);
         }
 
-        public Vector3 normal { get { return normal; } set { normal=value; } }
-        public float distance { get {return distance; } set {distance=value; } }
+        public Vector3 normal { get; set; }
+        public float distance { get; set; }
        
-        public Plane flipped { get {return flipped; } }
+        public Plane flipped { get; }
 
 
         public static Plane Translate(Plane plane, Vector3 translation)
