@@ -53,13 +53,15 @@ namespace plane
 
   
         public float GetDistanceToPoint(Vector3 point)
-        {
-            return Mathf.Abs(((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z))) / Vector3.Magnitude(normal) + distance;
+        { 
+                return ((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z)) + distance / normal.magnitude;
         }
   
         public bool GetSide(Vector3 point)
         {
             float tempDistance = GetDistanceToPoint(point);
+
+
             if (tempDistance > 0)
             {
                 return true;
