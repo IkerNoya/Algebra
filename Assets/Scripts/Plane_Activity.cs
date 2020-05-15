@@ -24,28 +24,41 @@ public class Plane_Activity : MonoBehaviour
 
     void Start()
     {
-        wallYNeg = new Planes(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
+        //mios
+        wallYNeg = new Planes(new Vec3(Walls[5].transform.position - Walls[0].transform.position), Walls[0].transform.position);
         wallXNeg = new Planes(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
         wallXPos = new Planes(new Vec3(Walls[1].transform.position - Walls[2].transform.position), Walls[2].transform.position);
-        wallZPos = new Planes(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
-        wallZNeg = new Planes(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
-        wallYPos = new Planes(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
+        wallZPos = new Planes(new Vec3(Walls[4].transform.position - Walls[3].transform.position), Walls[3].transform.position);
+        wallZNeg = new Planes(new Vec3(Walls[3].transform.position - Walls[4].transform.position), Walls[4].transform.position);
+        wallYPos = new Planes(new Vec3(Walls[0].transform.position - Walls[5].transform.position), Walls[5].transform.position);
 
+        //de unity
         test = new Plane(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
         test2 = new Plane(new Vec3(Walls[1].transform.position - Walls[2].transform.position), Walls[2].transform.position);
-        test3 = new Plane(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
-        test4 = new Plane(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
-        test5 = new Plane(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
-        test6 = new Plane(new Vec3(Walls[2].transform.position - Walls[1].transform.position), Walls[1].transform.position);
+        test3 = new Plane(new Vec3(Walls[5].transform.position - Walls[0].transform.position), Walls[0].transform.position);
+        test4 = new Plane(new Vec3(Walls[4].transform.position - Walls[3].transform.position), Walls[3].transform.position);
+        test5 = new Plane(new Vec3(Walls[3].transform.position - Walls[4].transform.position), Walls[4].transform.position);
+        test6 = new Plane(new Vec3(Walls[0].transform.position - Walls[5].transform.position), Walls[5].transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //dibujo planos
         DrawPlaneAtPoint(test, Walls[1].transform.position, 10, Color.red, 10.0f, true);
         DrawPlaneAtPoint(test2, Walls[2].transform.position, 10, Color.red, 10.0f, true);
+        DrawPlaneAtPoint(test3, Walls[0].transform.position, 10, Color.red, 10.0f, true);
+        DrawPlaneAtPoint(test4, Walls[3].transform.position, 10, Color.red, 10.0f, true);
+        DrawPlaneAtPoint(test5, Walls[4].transform.position, 10, Color.red, 10.0f, true);
+        DrawPlaneAtPoint(test6, Walls[5].transform.position, 10, Color.red, 10.0f, true);
+
+        //Chequea si el cubo esta dentro del cubo creado por planos
         Debug.Log("IzquierdaX: " + wallXNeg.GetSide(cube.transform.position));
         Debug.Log("DerechaX: " + wallXPos.GetSide(cube.transform.position));
+        Debug.Log("Arriba: " + wallYPos.GetSide(cube.transform.position));
+        Debug.Log("Abajo: " + wallYNeg.GetSide(cube.transform.position));
+        Debug.Log("AdelanteZ: " + wallZPos.GetSide(cube.transform.position));
+        Debug.Log("AtrasZ: " + wallZNeg.GetSide(cube.transform.position));
 
     }
 
