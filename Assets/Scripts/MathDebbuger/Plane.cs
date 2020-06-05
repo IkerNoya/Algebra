@@ -6,8 +6,6 @@ using CustomMath;
 
 namespace plane
 {
-
-
     public class Planes : MonoBehaviour
     {
 

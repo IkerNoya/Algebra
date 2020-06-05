@@ -8,9 +8,8 @@ public class Tester : MonoBehaviour
 {
     public enum Ejercicio
     {
-        uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve,diez
+        uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve,diez, once
     }
-
     public Ejercicio ejercicio;
     public Vector3 a;
     public Vector3 b;
@@ -44,6 +43,7 @@ public class Tester : MonoBehaviour
         timer += Time.deltaTime;
         timer2 += Time.deltaTime;
 
+
         if (Input.GetKeyDown(KeyCode.O))
         {
             VectorDebugger.TurnOffVector("elAzul");
@@ -52,6 +52,7 @@ public class Tester : MonoBehaviour
         {
             VectorDebugger.TurnOnVector("elAzul");
         }
+  
         VectorDebugger.UpdatePosition("La verde", A);
         VectorDebugger.UpdatePosition("La azul", B);
         switch (ejercicio) 
@@ -87,7 +88,6 @@ public class Tester : MonoBehaviour
             case Ejercicio.diez:
                 VectorDebugger.UpdatePosition("La roja", Vec3.LerpUnclamped(A,B,timer2));
                 break;
-
         } 
     }
 
