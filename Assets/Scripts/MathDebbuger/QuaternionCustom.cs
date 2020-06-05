@@ -75,7 +75,7 @@ namespace CustomMath
         //   b:
         public static float Dot(QuaternionCustom a, QuaternionCustom b)
         {
-            throw new NotImplementedException();
+            return (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
         }
         //
         // Summary:
