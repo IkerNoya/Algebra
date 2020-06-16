@@ -62,7 +62,8 @@ namespace CustomMath
         //   b:
         public static float Angle(QuaternionCustom a, QuaternionCustom b) 
         {
-            QuaternionCustom inv = Quaternion.Inverse(a);
+            QuaternionCustom inv = QuaternionCustom.Inverse(a);
+            Debug.Log(inv);
             QuaternionCustom result = b * inv;
             float ej = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
             return 360 - ej;
@@ -79,11 +80,12 @@ namespace CustomMath
         {
             axis.Normalize();
             QuaternionCustom result = new QuaternionCustom(0, 0, 0, 0);
-            result.x = axis.x * Mathf.Sin(angle / 2);
-            result.y = axis.y * Mathf.Sin(angle / 2);
-            result.z = axis.z * Mathf.Sin(angle / 2);
-            result.w = Mathf.Cos(angle / 2);
+            result.x = axis.x * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
+            result.y = axis.y * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
+            result.z = axis.z * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
+            result.w = Mathf.Cos(Mathf.Deg2Rad * angle / 2);
             result.Normalize(); 
+
             return result;
         }
         [Obsolete("Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees")]
@@ -169,7 +171,8 @@ namespace CustomMath
         //   rotation:
         public static QuaternionCustom Inverse(QuaternionCustom rotation)
         {
-            throw new NotImplementedException();
+            QuaternionCustom inv = new QuaternionCustom(-rotation.x, -rotation.y, -rotation.z, rotation.w);
+            return inv;
         }
         //
         // Summary:

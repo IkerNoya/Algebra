@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 1731222253, guid: 1cdcd9616b31100428ed5956c57ad794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ejercicio: 0
-  angle: 0
+  ejercicio: 2
+  angle: 10
 --- !u!4 &1889071330
 Transform:
   m_ObjectHideFlags: 0
