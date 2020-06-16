@@ -9,7 +9,7 @@ namespace CustomMath
     {
         public const float kEpsilon = 1E-06F;
         public float x;
-        public float y; 
+        public float y;
         public float z;
         public float w;
 
@@ -20,8 +20,24 @@ namespace CustomMath
             this.z = z;
             this.w = w;
         }
+        public QuaternionCustom(Quaternion q)
+        {
+            this.x = q.x;
+            this.y = q.y;
+            this.z = q.z;
+            this.w = q.w;
+        }
 
         public float this[int index] { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
+
+        public static implicit operator Quaternion(QuaternionCustom q)
+        {
+            return new Quaternion(q.x, q.y, q.z, q.w);
+        }
+        public static implicit operator QuaternionCustom(Quaternion q)
+        {
+            return new QuaternionCustom(q.x, q.y, q.z, q.w);
+        }
 
         //
         // Summary:
@@ -45,8 +61,11 @@ namespace CustomMath
         //
         //   b:
         public static float Angle(QuaternionCustom a, QuaternionCustom b) 
-        { 
-            throw new NotImplementedException(); 
+        {
+            QuaternionCustom inv = Quaternion.Inverse(a);
+            QuaternionCustom result = b * inv;
+            float ej = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
+            return 360 - ej;
         }
         //
         // Summary:
@@ -58,7 +77,14 @@ namespace CustomMath
         //   axis:
         public static QuaternionCustom AngleAxis(float angle, Vec3 axis)
         {
-            throw new NotImplementedException();
+            axis.Normalize();
+            QuaternionCustom result = new QuaternionCustom(0, 0, 0, 0);
+            result.x = axis.x * Mathf.Sin(angle / 2);
+            result.y = axis.y * Mathf.Sin(angle / 2);
+            result.z = axis.z * Mathf.Sin(angle / 2);
+            result.w = Mathf.Cos(angle / 2);
+            result.Normalize(); 
+            return result;
         }
         [Obsolete("Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees")]
         public static QuaternionCustom AxisAngle(Vec3 axis, float angle)
@@ -277,7 +303,11 @@ namespace CustomMath
         }
         public void Normalize()
         {
-            throw new NotImplementedException();
+            float magnitude = Mathf.Sqrt(x * x + y * y + z * z + w * w);
+            x = x / magnitude;
+            y = y / magnitude;
+            z = z / magnitude;
+            w = w / magnitude;
         }
         //
         // Summary:
@@ -397,7 +427,7 @@ namespace CustomMath
         //   format:
         public override string ToString()
         {
-            return "X:" + x.ToString() + " Y:" + y.ToString() + " Z" + z.ToString() + " W:" + w.ToString();
+            return "X: " + x.ToString() + " Y: " + y.ToString() + " Z: " + z.ToString() + " W: " + w.ToString();
         }
 
         public static Vec3 operator *(QuaternionCustom rotation, Vec3 point)
@@ -406,7 +436,7 @@ namespace CustomMath
         }
         public static QuaternionCustom operator *(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            throw new NotImplementedException();
+            return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w);
         }
         public static bool operator ==(QuaternionCustom lhs, QuaternionCustom rhs)
         {

@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using CustomMath;
+using UnityEngine.UIElements;
 
 public class Cube : MonoBehaviour
 {
     public float angle;
+    Quaternion q1 = new Quaternion(1, 1, 1, 0);
+    QuaternionCustom ac;
     // Update is called once per frame
+    private void Start()
+    {
+        Debug.Log("UNITY: " + Quaternion.Angle(new Quaternion(1, 0, 0,0), new Quaternion(0, 0, 0, 0)));
+        Debug.Log("MIO: " + (QuaternionCustom.Angle(new QuaternionCustom(1, 0, 0, 0), new QuaternionCustom(0, 0, 0, 0))));
+    }
     void Update()
     {
         //Descomentar para ver cada ejemplo
@@ -26,6 +35,7 @@ public class Cube : MonoBehaviour
         float z = Mathf.Sin(Mathf.Deg2Rad * angle * 0.5f);
 
         transform.rotation = new Quaternion(z, 0, 0, w);
+
 
 
     }
