@@ -25,7 +25,7 @@ public class Cube : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-        //if (t >= 1) t = 0;
+        if (t >= 1) t = 0;
         //Descomentar para ver cada ejemplo
         //Rotaciones con binomio al cuadrado
         //float VecX = (1 / Mathf.Sqrt(2));
@@ -45,7 +45,7 @@ public class Cube : MonoBehaviour
 
         //transform.rotation = new Quaternion(z, 0, 0, w);
         //transform.rotation = QuaternionCustom.Euler(angle,0,0);
-        transform.rotation = QuaternionCustom.LerpUnclamped(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
+        transform.rotation = QuaternionCustom.Slerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
 
 
     }

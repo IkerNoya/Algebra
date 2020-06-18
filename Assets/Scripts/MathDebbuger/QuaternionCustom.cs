@@ -229,6 +229,7 @@ namespace CustomMath
             {
                 t = 1.0f;
             }
+            q.Normalize();
             return q;
         }
         //
@@ -249,6 +250,7 @@ namespace CustomMath
             q.y = ((b.y - a.y) * t + a.y);
             q.z = ((b.z - a.z) * t + a.z);
             q.w = ((b.w - a.w) * t + a.w);
+            q.Normalize();
             return q;
         }
         //
@@ -318,7 +320,26 @@ namespace CustomMath
         //   t:
         public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t)
         {
-            throw new NotImplementedException();
+            float diff = 1 - t;
+            QuaternionCustom q = new QuaternionCustom(); // buscar bien como funciona la formula
+            if (t < 1)
+            {
+                float dot = Mathf.Acos(QuaternionCustom.Dot(a, b));
+                float sin = Mathf.Sqrt(1 - dot * dot);
+                float dotDiv1 = Mathf.Sin(diff * dot) / sin;
+                float dotDiv2 = Mathf.Sin(t * dot) / sin;
+                q.x = dotDiv1 * q.x + dotDiv2 * q.x;
+                q.y = dotDiv1 * q.y + dotDiv2 * q.y;
+                q.z = dotDiv1 * q.z + dotDiv2 * q.z;
+                q.w = dotDiv1 * q.w + dotDiv2 * q.w;
+            }
+            else
+            {
+                t = 1.0f;
+            }
+            q.Normalize();
+            Debug.Log("Prueba Q: " + q);
+            return q;
         }
         //
         // Summary:
@@ -373,7 +394,10 @@ namespace CustomMath
         //   newW:
         public void Set(float newX, float newY, float newZ, float newW)
         {
-            throw new NotImplementedException();
+            x = newX;
+            y = newY;
+            z = newZ;
+            w = newW;
         }
         [Obsolete("Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
         public void SetAxisAngle(Vector3 axis, float angle)
