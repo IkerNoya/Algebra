@@ -12,8 +12,8 @@ public class Cube : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-        Debug.Log("UNITY: " + Quaternion.Angle(new Quaternion(1, 0, 0,0), new Quaternion(0, 0, 0, 0)));
-        Debug.Log("MIO: " + (QuaternionCustom.Angle(new Quaternion(1, 0, 0, 0), new Quaternion(0, 0, 0, 0))));
+        Debug.Log("UNITY: " + Quaternion.Euler(new Vector3(2, 0, 0)));
+        Debug.Log("MIO: " + QuaternionCustom.Euler(new Vec3(2, 0, 0)));
         Debug.Log("UNITY- inverse : " + Quaternion.Inverse(new Quaternion(2,0,0,5)));
         Debug.Log("MIO - inverse : " + QuaternionCustom.Inverse(new QuaternionCustom(2, 0, 0, 5)));
     }

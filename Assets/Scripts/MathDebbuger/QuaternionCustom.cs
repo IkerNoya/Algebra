@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
+using System.Security.Cryptography;
+
 namespace CustomMath
 {
     public class QuaternionCustom : IEquatable<QuaternionCustom>
@@ -19,6 +21,13 @@ namespace CustomMath
             this.y = y;
             this.z = z;
             this.w = w;
+        }
+        public QuaternionCustom()
+        {
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+            this.w = 0;
         }
         public QuaternionCustom(Quaternion q)
         {
@@ -78,13 +87,16 @@ namespace CustomMath
         //   axis:
         public static QuaternionCustom AngleAxis(float angle, Vec3 axis)
         {
+            angle *= Mathf.Deg2Rad;
             axis.Normalize();
-            QuaternionCustom result = new QuaternionCustom(0, 0, 0, 0);
-            result.x = axis.x * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
-            result.y = axis.y * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
-            result.z = axis.z * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
-            result.w = Mathf.Cos(Mathf.Deg2Rad * angle / 2);
-            result.Normalize(); 
+            QuaternionCustom result = new QuaternionCustom
+            {
+                x = axis.x * Mathf.Sin(angle * 0.5f),
+                y = axis.y * Mathf.Sin(angle * 0.5f),
+                z = axis.z * Mathf.Sin(angle * 0.5f),
+                w = Mathf.Cos(angle * 0.5f)
+            };
+            result.Normalize();
 
             return result;
         }
@@ -114,7 +126,24 @@ namespace CustomMath
         //   euler:
         public static QuaternionCustom Euler(Vector3 euler)
         {
-            throw new NotImplementedException();
+            euler.Normalize();
+            float aX = Mathf.Cos(euler.x * 0.5f);
+            float aY = Mathf.Cos(euler.y * 0.5f);
+            float aZ = Mathf.Cos(euler.z * 0.5f);
+
+            float bX = Mathf.Sin(euler.x * 0.5f);
+            float bY = Mathf.Sin(euler.y * 0.5f);
+            float bZ = Mathf.Sin(euler.z * 0.5f);
+
+            QuaternionCustom q = new Quaternion
+            {
+                x = aX * aY * bZ + bX * bY * aZ,
+                y = bX * aY * aZ + aX * bY * bZ,
+                z = aX * bY * aZ - bX * aY * bZ, 
+                w = aX * aY * aZ - bX * bY * bZ
+            };
+            q.Normalize();
+            return q;
         }
         //
         // Summary:
@@ -307,10 +336,10 @@ namespace CustomMath
         public void Normalize()
         {
             float magnitude = Mathf.Sqrt(x * x + y * y + z * z + w * w);
-            x = x / magnitude;
-            y = y / magnitude;
-            z = z / magnitude;
-            w = w / magnitude;
+            x /= magnitude;
+            y /= magnitude;
+            z /= magnitude;
+            w /= magnitude;
         }
         //
         // Summary:
@@ -443,11 +472,17 @@ namespace CustomMath
         }
         public static bool operator ==(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            throw new NotImplementedException();
+            if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w)
+                return true;
+            else
+                return false;
         }
         public static bool operator !=(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            throw new NotImplementedException();
+            if (lhs.x != rhs.x || lhs.y != rhs.y || lhs.z != rhs.z || lhs.w != rhs.w)
+                return true;
+            else
+                return false;
         }
     }
 }
