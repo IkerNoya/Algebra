@@ -217,7 +217,19 @@ namespace CustomMath
         //   t:
         public static QuaternionCustom Lerp(QuaternionCustom a, QuaternionCustom b, float t)
         {
-            throw new NotImplementedException();
+            QuaternionCustom q = new QuaternionCustom();
+            if (t < 1)
+            {
+                q.x = ((b.x-a.x)*t+a.x);
+                q.y = ((b.y-a.y)*t+a.y);
+                q.z = ((b.z-a.z)*t+a.z);
+                q.w = ((b.w-a.w)*t+a.w);
+            }
+            else
+            {
+                t = 1.0f;
+            }
+            return q;
         }
         //
         // Summary:
