@@ -7,15 +7,17 @@ using UnityEngine.UIElements;
 public class Cube : MonoBehaviour
 {
     public float angle;
-    Quaternion q1 = new Quaternion(1, 1, 1, 0);
-    QuaternionCustom ac;
+    public Quaternion q1 = new Quaternion(1, 1, 1, 0);
+    public QuaternionCustom ac;
     // Update is called once per frame
     private void Start()
     {
-        Debug.Log("UNITY: " + Quaternion.Euler(new Vector3(2, 0, 0)));
-        Debug.Log("MIO: " + QuaternionCustom.Euler(new Vec3(2, 0, 0)));
+        Debug.Log("UNITY: " + Quaternion.Euler(new Vec3(0, 90, 0)));
+        Debug.Log("MIO: " + QuaternionCustom.Euler(new Vec3(0, 90, 0)));
         Debug.Log("UNITY- inverse : " + Quaternion.Inverse(new Quaternion(2,0,0,5)));
         Debug.Log("MIO - inverse : " + QuaternionCustom.Inverse(new QuaternionCustom(2, 0, 0, 5)));
+        q1 = Quaternion.Euler(new Vec3(0,90,0));
+        ac = QuaternionCustom.Euler(new Vec3(0, 90, 0));
     }
     void Update()
     {

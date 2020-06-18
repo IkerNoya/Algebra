@@ -126,22 +126,13 @@ namespace CustomMath
         //   euler:
         public static QuaternionCustom Euler(Vector3 euler)
         {
-            euler.Normalize();
-            float aX = Mathf.Cos(euler.x * 0.5f);
-            float aY = Mathf.Cos(euler.y * 0.5f);
-            float aZ = Mathf.Cos(euler.z * 0.5f);
-
-            float bX = Mathf.Sin(euler.x * 0.5f);
-            float bY = Mathf.Sin(euler.y * 0.5f);
-            float bZ = Mathf.Sin(euler.z * 0.5f);
-
-            QuaternionCustom q = new Quaternion
-            {
-                x = aX * aY * bZ + bX * bY * aZ,
-                y = bX * aY * aZ + aX * bY * bZ,
-                z = aX * bY * aZ - bX * aY * bZ, 
-                w = aX * aY * aZ - bX * bY * bZ
-            };
+            float rad = Mathf.Deg2Rad;
+            euler *= rad;
+            QuaternionCustom q = new QuaternionCustom();
+            q.x = Mathf.Sin(euler.x * 0.5f);
+            q.y = Mathf.Sin(euler.y * 0.5f);
+            q.z = Mathf.Sin(euler.z * 0.5f);
+            q.w = Mathf.Cos(euler.x * 0.5f) * Mathf.Cos(euler.y * 0.5f) * Mathf.Cos(euler.z * 0.5f) - Mathf.Sin(euler.x * 0.5f) * Mathf.Sin(euler.y * 0.5f) * Mathf.Sin(euler.z * 0.5f); // buscar por que esta formula es asi
             q.Normalize();
             return q;
         }
@@ -158,7 +149,17 @@ namespace CustomMath
         //   z:
         public static QuaternionCustom Euler(float x, float y, float z)
         {
-            throw new NotImplementedException();
+            float rad = Mathf.Deg2Rad;
+            x *= rad;
+            y *= rad;
+            z *= rad;
+            QuaternionCustom q = new QuaternionCustom();
+            q.x = Mathf.Sin(x * 0.5f);
+            q.y = Mathf.Sin(y * 0.5f);
+            q.z = Mathf.Sin(z * 0.5f);
+            q.w = Mathf.Cos(x * 0.5f) * Mathf.Cos(y * 0.5f) * Mathf.Cos(z * 0.5f) - Mathf.Sin(x * 0.5f) * Mathf.Sin(y * 0.5f) * Mathf.Sin(z * 0.5f);
+            q.Normalize();
+            return q;
         }
         [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
         public static QuaternionCustom EulerAngles(float x, float y, float z)
