@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 
 namespace CustomMath
 {
@@ -75,7 +76,7 @@ namespace CustomMath
             Debug.Log(inv);
             QuaternionCustom result = b * inv;
             float ej = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
-            return 360 - ej;
+            return ej;
         }
         //
         // Summary:
@@ -291,7 +292,12 @@ namespace CustomMath
         //   q:
         public static QuaternionCustom Normalize(QuaternionCustom q)
         {
-            throw new NotImplementedException();
+            float magnitude = Mathf.Sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+            q.x /= magnitude;
+            q.y /= magnitude;
+            q.z /= magnitude;
+            q.w /= magnitude;
+            return q;
         }
         //
         // Summary:
@@ -305,7 +311,7 @@ namespace CustomMath
         //   maxDegreesDelta:
         public static QuaternionCustom RotateTowards(QuaternionCustom from, QuaternionCustom to, float maxDegreesDelta)
         {
-            throw new NotImplementedException();
+         throw new NotImplementedException();
         }
         //
         // Summary:

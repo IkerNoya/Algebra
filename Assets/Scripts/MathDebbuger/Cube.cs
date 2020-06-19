@@ -11,16 +11,19 @@ public class Cube : MonoBehaviour
     public Quaternion q1 = new Quaternion(1, 1, 1, 0);
     public QuaternionCustom ac;
     float t;
-
+    public QuaternionCustom qP1;
+    public QuaternionCustom qP2;
+    public Quaternion qP3;
+    public Quaternion qP4;
+    public Transform target;
     // Update is called once per frame
     private void Start()
     {
-        Debug.Log("UNITY: " + Quaternion.Euler(new Vec3(0, 90, 0)));
-        Debug.Log("MIO: " + QuaternionCustom.Euler(new Vec3(0, 90, 0)));
-        Debug.Log("UNITY- inverse : " + Quaternion.Inverse(new Quaternion(2,0,0,5)));
-        Debug.Log("MIO - inverse : " + QuaternionCustom.Inverse(new QuaternionCustom(2, 0, 0, 5)));
-        q1 = Quaternion.Euler(new Vec3(0,90,0));
-        ac = QuaternionCustom.Euler(new Vec3(0, 90, 0));
+        qP1 = new QuaternionCustom(0, 180, 0, 5);
+        qP2 = new QuaternionCustom(0, 90, 0, 5);
+        qP3 = new Quaternion(0, 180, 0, 5);
+        qP4 = new Quaternion(0,90, 0, 5);
+
     }
     void Update()
     {
@@ -42,11 +45,12 @@ public class Cube : MonoBehaviour
         angle += 10;
         float w = Mathf.Cos(Mathf.Deg2Rad*angle* 0.5f);
         float z = Mathf.Sin(Mathf.Deg2Rad * angle * 0.5f);
-
         //transform.rotation = new Quaternion(z, 0, 0, w);
         //transform.rotation = QuaternionCustom.Euler(angle,0,0);
-        transform.rotation = QuaternionCustom.Slerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
-
+        //transform.rotation = QuaternionCustom.Lerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
+      
+        Debug.Log("UNITY: " + Quaternion.Angle(transform.rotation, target.rotation));
+        Debug.Log("MIO: " + QuaternionCustom.Angle(transform.rotation, target.rotation));
 
     }
 }
