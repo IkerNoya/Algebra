@@ -16,6 +16,7 @@ public class Cube : MonoBehaviour
     public Quaternion qP3;
     public Quaternion qP4;
     public Transform target;
+    bool rotate = false;
     // Update is called once per frame
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Cube : MonoBehaviour
     }
     void Update()
     {
-        t += Time.deltaTime;
+        t += Time.deltaTime ;
         if (t >= 1) t = 0;
         //Descomentar para ver cada ejemplo
         //Rotaciones con binomio al cuadrado
@@ -51,6 +52,10 @@ public class Cube : MonoBehaviour
       
         Debug.Log("UNITY: " + Quaternion.Angle(transform.rotation, target.rotation));
         Debug.Log("MIO: " + QuaternionCustom.Angle(transform.rotation, target.rotation));
+        if (Input.GetKeyDown(KeyCode.Space))
+            rotate = true;
+        if(rotate)
+            transform.rotation = QuaternionCustom.Slerp(transform.rotation, target.rotation, t);
 
     }
 }
