@@ -390,7 +390,7 @@ namespace CustomMath
         // Summary:
         //     Set x, y, z and w components of an existing Quaternion.
         //
-        // Parameters:
+        // Parameters:      
         //   newX:
         //
         //   newY:
