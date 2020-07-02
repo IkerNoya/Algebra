@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
 using MathDebbuger;
-using EjerciciosAlgebra;
 
 public class TesterQuat : MonoBehaviour
 {
@@ -30,6 +29,7 @@ public class TesterQuat : MonoBehaviour
         newAngle += angle;
         Vec3 A = new Vec3(a);
         EjerciciosAlgebra.VectorDebugger.UpdatePosition("La Roja", A);
+        VectorDebugger.GetVectorsPositions("La Roja");
         QuaternionCustom q1;
         switch (ejercicios)
         {

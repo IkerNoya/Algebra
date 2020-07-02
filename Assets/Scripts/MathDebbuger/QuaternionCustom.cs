@@ -75,8 +75,8 @@ namespace CustomMath
             QuaternionCustom inv = QuaternionCustom.Inverse(a);
             Debug.Log(inv);
             QuaternionCustom result = b * inv;
-            float ej = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
-            return ej;
+            float angle = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
+            return angle;
         }
         //
         // Summary:
@@ -100,11 +100,6 @@ namespace CustomMath
             result.Normalize();
 
             return result;
-        }
-        [Obsolete("Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees")]
-        public static QuaternionCustom AxisAngle(Vec3 axis, float angle)
-        {
-            throw new NotImplementedException();
         }
         //
         // Summary:
@@ -161,26 +156,6 @@ namespace CustomMath
             q.w = Mathf.Cos(x * 0.5f) * Mathf.Cos(y * 0.5f) * Mathf.Cos(z * 0.5f) - Mathf.Sin(x * 0.5f) * Mathf.Sin(y * 0.5f) * Mathf.Sin(z * 0.5f);
             q.Normalize();
             return q;
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static QuaternionCustom EulerAngles(float x, float y, float z)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static QuaternionCustom EulerAngles(Vec3 euler)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static QuaternionCustom EulerRotation(float x, float y, float z)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static QuaternionCustom EulerRotation(Vector3 euler)
-        {
-            throw new NotImplementedException();
         }
         //
         // Summary:
@@ -264,7 +239,7 @@ namespace CustomMath
         //
         //   upwards:
         //     The vector that defines in which direction up is.
-        public static QuaternionCustom LookRotation(Vec3 forward)
+        public static QuaternionCustom LookRotation(Vec3 forward) //se puede tomar euler
         {
             throw new NotImplementedException();
         }
@@ -278,7 +253,7 @@ namespace CustomMath
         //
         //   upwards:
         //     The vector that defines in which direction up is.
-        public static QuaternionCustom LookRotation(Vec3 forward, Vec3 upwards)
+        public static QuaternionCustom LookRotation(Vec3 forward, Vec3 upwards) // la rotacion tomando en cuenta a lo que estas mirando y cual es su arriba
         {
             throw new NotImplementedException();
         }
@@ -327,7 +302,7 @@ namespace CustomMath
         public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t)
         {
             float diff = 1 - t;
-            QuaternionCustom q = new QuaternionCustom(); // buscar bien como funciona la formula
+            QuaternionCustom q = a; // buscar bien como funciona la formula
             if (t < 1)
             {
                 float dot = Mathf.Acos(QuaternionCustom.Dot(a, b));
@@ -358,11 +333,6 @@ namespace CustomMath
         //
         //   t:
         public static QuaternionCustom SlerpUnclamped(QuaternionCustom a, QuaternionCustom b, float t)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public static Vec3 ToEulerAngles(QuaternionCustom rotation)
         {
             throw new NotImplementedException();
         }
@@ -405,31 +375,6 @@ namespace CustomMath
             z = newZ;
             w = newW;
         }
-        [Obsolete("Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetAxisAngle(Vector3 axis, float angle)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerAngles(Vec3 euler)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerAngles(float x, float y, float z)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerRotation(float x, float y, float z)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void SetEulerRotation(Vec3 euler)
-        {
-            throw new NotImplementedException();
-        }
         //
         // Summary:
         //     Creates a rotation which rotates from fromDirection to toDirection.
@@ -471,21 +416,6 @@ namespace CustomMath
             throw new NotImplementedException();
         }
         public void ToAngleAxis(out float angle, out Vec3 axis)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.ToAngleAxis instead. This function was deprecated because it uses radians instead of degrees.")]
-        public void ToAxisAngle(out Vec3 axis, out float angle)
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public Vec3 ToEuler()
-        {
-            throw new NotImplementedException();
-        }
-        [Obsolete("Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.")]
-        public Vec3 ToEulerAngles()
         {
             throw new NotImplementedException();
         }
