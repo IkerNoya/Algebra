@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 66186637}
   - component: {fileID: 66186636}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube Quat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 437738720}
   - component: {fileID: 437738719}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube M4x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437738718}
-  m_LocalRotation: {x: -0, y: -0, z: 0.057311647, w: 0.99835634}
+  m_LocalRotation: {x: 0, y: 0, z: 0.057311647, w: 0.99835634}
   m_LocalPosition: {x: 3.71, y: 4.21, z: -6.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -167,6 +167,10 @@ namespace CustomMath
         //   toDirection:
         public static QuaternionCustom FromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
+            //QuaternionCustom q;
+            //float angle = Vec3.Angle(fromDirection, toDirection);
+            //q = QuaternionCustom.Euler()
+            //return q;
             throw new NotImplementedException();
         }
         //

@@ -27,7 +27,10 @@ namespace CustomMath
 
         public M4x4(Vector4 column0, Vector4 column1, Vector4 column2, Vector4 column3)
         {
-            throw new NotImplementedException();
+            m00 = column0.x; m01 = column0.y; m02 = column0.z; m03 = column0.w;
+            m10 = column1.x; m11 = column1.y; m12 = column1.z; m13 = column1.w;
+            m20 = column2.x; m21 = column2.y; m22 = column2.z; m23 = column2.w;
+            m30 = column3.x; m31 = column3.y; m32 = column3.z; m33 = column3.w;
         }
         //
         // Summary:
