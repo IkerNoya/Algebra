@@ -52,7 +52,7 @@ namespace CustomMath
         //
         // Summary:
         //     The identity rotation (Read Only).
-        public static QuaternionCustom identity { get; }
+        public static QuaternionCustom identity { get { return new QuaternionCustom(0,0,0,1); } }
         //
         // Summary:
         //     Returns or sets the euler angle representation of the rotation.
@@ -73,7 +73,6 @@ namespace CustomMath
         public static float Angle(QuaternionCustom a, QuaternionCustom b) 
         {
             QuaternionCustom inv = QuaternionCustom.Inverse(a);
-            Debug.Log(inv);
             QuaternionCustom result = b * inv;
             float angle = Mathf.Acos(result.w) * 2.0f * Mathf.Rad2Deg;
             return angle;
@@ -169,14 +168,11 @@ namespace CustomMath
         {
             QuaternionCustom q;
             float angle = Vec3.Angle(fromDirection, toDirection);
-            float w = Mathf.Cos(angle*0.5f);
-            float x = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
-            float z = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
-            float y = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
-            q = new QuaternionCustom(z, y, x, Mathf.Cos(Mathf.Deg2Rad*angle * 0.5f));
-
+            QuaternionCustom q1 = new QuaternionCustom(Mathf.Sin(angle  * 0.5f * Mathf.Deg2Rad), 0, 0, Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
+            QuaternionCustom q2 = new QuaternionCustom(0, Mathf.Sin(angle * 0.5f * Mathf.Deg2Rad), 0, Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
+            QuaternionCustom q3 = new QuaternionCustom(0, 0, Mathf.Sin(angle * 0.5f * Mathf.Deg2Rad), Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
+            q = q1 * q2 * q3;
             return q;
-            //throw new NotImplementedException();
         }
         //
         // Summary:
@@ -310,25 +306,21 @@ namespace CustomMath
         //   t:
         public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t)
         {
-            float diff = 1 - t;
-            QuaternionCustom q = a; // buscar bien como funciona la formula
+            QuaternionCustom q = new QuaternionCustom(0,0,0,0); // buscar bien como funciona la formula
             if (t < 1)
             {
-                float dot = Mathf.Acos(QuaternionCustom.Dot(a, b));
-                float sin = Mathf.Sqrt(1 - dot * dot);
-                float dotDiv1 = Mathf.Sin(diff * dot) / sin;
-                float dotDiv2 = Mathf.Sin(t * dot) / sin;
-                q.x = dotDiv1 * q.x + dotDiv2 * q.x;
-                q.y = dotDiv1 * q.y + dotDiv2 * q.y;
-                q.z = dotDiv1 * q.z + dotDiv2 * q.z;
-                q.w = dotDiv1 * q.w + dotDiv2 * q.w;
+                float angle = Angle(a, b);
+                QuaternionCustom q1 = new QuaternionCustom(Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad),0,0, Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
+                QuaternionCustom q2 = new QuaternionCustom(0, Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad), 0, Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
+                QuaternionCustom q3 = new QuaternionCustom(0,0, Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad), Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
+                //p = angle * t * a;
+                q = q1 * q2 * q3;
             }
             else
             {
                 t = 1.0f;
             }
             q.Normalize();
-            Debug.Log("Prueba Q: " + q);
             return q;
         }
         //
@@ -446,7 +438,7 @@ namespace CustomMath
         //   format:
         public override string ToString()
         {
-            return "X: " + x.ToString() + " Y: " + y.ToString() + " Z: " + z.ToString() + " W: " + w.ToString();
+            return "(" + x.ToString() + ", " + y.ToString() + ", " + z.ToString() + ", " + w.ToString() + ")";
         }
 
         public static Vec3 operator *(QuaternionCustom rotation, Vec3 point)

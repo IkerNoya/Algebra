@@ -79,7 +79,12 @@ namespace CustomMath
 
         public static Vector4 operator *(M4x4 lhs, Vector4 vector)
         {
-            throw new NotImplementedException();
+            Vector4 vec;
+            vec.x = (lhs.m00 * vector.x) + (lhs.m01 * vector.y) + (lhs.m02 * vector.z) + (lhs.m03 * vector.w);
+            vec.y = (lhs.m10 * vector.x) + (lhs.m11 * vector.y) + (lhs.m12 * vector.z) + (lhs.m13 * vector.w);
+            vec.z = (lhs.m20 * vector.x) + (lhs.m21 * vector.y) + (lhs.m22 * vector.z) + (lhs.m23 * vector.w);
+            vec.w = (lhs.m30 * vector.x) + (lhs.m31 * vector.y) + (lhs.m32 * vector.z) + (lhs.m33 * vector.w);
+            return vec;
         }
         public static Matrix4x4 operator *(M4x4 lhs, M4x4 rhs)
         {
@@ -87,12 +92,22 @@ namespace CustomMath
         }
         public static bool operator ==(M4x4 lhs, M4x4 rhs)
         {
-            throw new NotImplementedException();
+            if (lhs.m00 == rhs.m00 && lhs.m01 == rhs.m01 && lhs.m02 == rhs.m02 && lhs.m03 == rhs.m03
+             && lhs.m10 == rhs.m10 && lhs.m11 == rhs.m11 && lhs.m12 == rhs.m12 && lhs.m13 == rhs.m13
+             && lhs.m20 == rhs.m20 && lhs.m21 == rhs.m21 && lhs.m22 == rhs.m22 && lhs.m23 == rhs.m23
+             && lhs.m30 == rhs.m30 && lhs.m31 == rhs.m31 && lhs.m32 == rhs.m32 && lhs.m33 == rhs.m33) return true;
+            else return false;
         }
         public static bool operator !=(M4x4 lhs, M4x4 rhs)
         {
-            throw new NotImplementedException();
+            if (lhs.m00 != rhs.m00 || lhs.m01 != rhs.m01 || lhs.m02 != rhs.m02 || lhs.m03 != rhs.m03 
+             || lhs.m10 != rhs.m10 || lhs.m11 != rhs.m11 || lhs.m12 != rhs.m12 || lhs.m13 != rhs.m13
+             || lhs.m20 != rhs.m20 || lhs.m21 != rhs.m21 || lhs.m22 != rhs.m22 || lhs.m23 != rhs.m23
+             || lhs.m30 != rhs.m30 || lhs.m31 != rhs.m31 || lhs.m32 != rhs.m32 || lhs.m33 != rhs.m33) return true;
+            else return false;
         }
 
+        //Bibliografia:
+        //Khal Ragnar AKA: Julian Bega
     }
 }

@@ -48,9 +48,10 @@ public class Cube : MonoBehaviour
         //transform.rotation = new Quaternion(z, 0, 0, w);
         //transform.rotation = QuaternionCustom.Euler(angle,0,0);
         //transform.rotation = QuaternionCustom.Lerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
-      
-        Debug.Log("UNITY: " + transform.rotation * target.rotation);
-        Debug.Log("MIO: " + new QuaternionCustom(transform.rotation) * new QuaternionCustom(target.rotation));
+        Vec3 a = Vec3.Up;
+        Vec3 b = Vec3.Forward;
+        Debug.Log("UNITY: " + Quaternion.FromToRotation(Vec3.Up, Vec3.Forward)); ;
+        Debug.Log("MIO: " + QuaternionCustom.FromToRotation(Vec3.Up, Vec3.Forward));
         if (Input.GetKeyDown(KeyCode.Space))
             rotate = true;
         if(rotate)
