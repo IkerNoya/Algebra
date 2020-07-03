@@ -93,7 +93,9 @@ namespace CustomMath
         //   s:
         public static M4x4 TRS(Vec3 pos, QuaternionCustom q, Vec3 s)
         {
-            throw new NotImplementedException();
+            M4x4 trs = M4x4.zero;
+            trs = M4x4.Translate(pos) * M4x4.Rotate(q) *  M4x4.Scale(s);
+            return trs;
         }
 
         public static Vector4 operator *(M4x4 lhs, Vector4 vector)
