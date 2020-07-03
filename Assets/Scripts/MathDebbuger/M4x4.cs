@@ -59,7 +59,20 @@ namespace CustomMath
         //   q:
         public static M4x4 Rotate(QuaternionCustom q)
         {
-            throw new NotImplementedException();
+            M4x4 mat = M4x4.identity;
+            mat.m00 = 1 - 2 * q.y * q.y - 2 * q.z * q.z;
+            mat.m10 = 2 - q.x * q.y - 2 * q.z * q.w;        // x
+            mat.m20 = 1 - 2 * q.y * q.y - 2 * q.z * q.z;
+
+            mat.m01 = 2 * q.x * q.y + 2 * q.z * q.w;
+            mat.m01 = 1 - 2 * q.x * q.x - 2 * q.z * q.z;        //y
+            mat.m01 = 2 * q.y * q.z - 2 * q.x * q.w;
+
+            mat.m01 = 2 * q.x * q.z - 2 * q.y * q.w;
+            mat.m01 = 2 * q.y * q.z + 2 * q.x * q.w;        //z
+            mat.m01 = 1 - 2 * q.x * q.x - 2 * q.y * q.y;
+
+            return mat;
         }
         //
         // Summary:
