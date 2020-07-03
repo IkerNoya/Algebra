@@ -34,6 +34,23 @@ namespace CustomMath
             m02 = column2.x; m12 = column2.y; m22 = column2.z; m32 = column2.w;//2
             m03 = column3.x; m13 = column3.y; m23 = column3.z; m33 = column3.w;//3
         }
+        public static M4x4 zero 
+        {
+            get
+            {
+                return new M4x4(new Vector4(0, 0, 0, 0), new Vector4(0, 0, 0, 0), new Vector4(0, 0, 0, 0), new Vector4(0, 0, 0, 0));
+            } 
+        }
+        //
+        // Summary:
+        //     Returns the identity matrix (Read Only).
+        public static M4x4 identity
+        {
+            get
+            {
+                return new M4x4(new Vector4(1, 0, 0, 0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
+            }
+        }
         //
         // Summary:
         //     Creates a rotation matrix.

@@ -26,7 +26,7 @@ public class Cube : MonoBehaviour
         qP3 = new Quaternion(0, 180, 0, 5);
         qP4 = new Quaternion(0,90, 0, 5);
     }
-    void Update()
+    void Update()   
     {
         t += Time.deltaTime ;
         if (t >= 1) t = 0;
