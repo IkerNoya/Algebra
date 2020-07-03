@@ -17,6 +17,7 @@ public class Cube : MonoBehaviour
     public Quaternion qP4;
     public Transform target;
     bool rotate = false;
+
     // Update is called once per frame
     private void Start()
     {
@@ -50,7 +51,7 @@ public class Cube : MonoBehaviour
         //transform.rotation = QuaternionCustom.Lerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
         Vec3 a = Vec3.Up;
         Vec3 b = Vec3.Forward;
-        Debug.Log("UNITY: " + Quaternion.FromToRotation(Vec3.Up, Vec3.Forward)); ;
+        Debug.Log("UNITY: " + Quaternion.FromToRotation(Vec3.Up, Vec3.Forward));
         Debug.Log("MIO: " + QuaternionCustom.FromToRotation(Vec3.Up, Vec3.Forward));
         if (Input.GetKeyDown(KeyCode.Space))
             rotate = true;
