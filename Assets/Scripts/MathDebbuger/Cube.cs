@@ -24,7 +24,6 @@ public class Cube : MonoBehaviour
         qP2 = new QuaternionCustom(0, 90, 0, 5);
         qP3 = new Quaternion(0, 180, 0, 5);
         qP4 = new Quaternion(0,90, 0, 5);
-
     }
     void Update()
     {
@@ -50,8 +49,8 @@ public class Cube : MonoBehaviour
         //transform.rotation = QuaternionCustom.Euler(angle,0,0);
         //transform.rotation = QuaternionCustom.Lerp(QuaternionCustom.Euler(0,90,0), QuaternionCustom.Euler(0,180,0), t);
       
-        Debug.Log("UNITY: " + Quaternion.Angle(transform.rotation, target.rotation));
-        Debug.Log("MIO: " + QuaternionCustom.Angle(transform.rotation, target.rotation));
+        Debug.Log("UNITY: " + transform.rotation * target.rotation);
+        Debug.Log("MIO: " + new QuaternionCustom(transform.rotation) * new QuaternionCustom(target.rotation));
         if (Input.GetKeyDown(KeyCode.Space))
             rotate = true;
         if(rotate)

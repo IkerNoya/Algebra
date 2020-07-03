@@ -60,7 +60,7 @@ namespace CustomMath
         //
         // Summary:
         //     Returns this quaternion with a magnitude of 1 (Read Only).
-        public QuaternionCustom normalized { get; }
+        public QuaternionCustom normalized { get { return Normalize(this); } }
 
         //
         // Summary:
@@ -167,11 +167,16 @@ namespace CustomMath
         //   toDirection:
         public static QuaternionCustom FromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
-            //QuaternionCustom q;
-            //float angle = Vec3.Angle(fromDirection, toDirection);
-            //q = QuaternionCustom.Euler()
-            //return q;
-            throw new NotImplementedException();
+            QuaternionCustom q;
+            float angle = Vec3.Angle(fromDirection, toDirection);
+            float w = Mathf.Cos(angle*0.5f);
+            float x = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
+            float z = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
+            float y = Mathf.Sin(Mathf.Deg2Rad * angle*0.5f);
+            q = new QuaternionCustom(z, y, x, Mathf.Cos(Mathf.Deg2Rad*angle * 0.5f));
+
+            return q;
+            //throw new NotImplementedException();
         }
         //
         // Summary:
