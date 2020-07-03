@@ -69,7 +69,12 @@ namespace CustomMath
         //   vector:
         public static M4x4 Scale(Vec3 vector)
         {
-            throw new NotImplementedException();
+            M4x4 mat = M4x4.identity;
+            mat.m00 = vector.x;
+            mat.m11 = vector.x;
+            mat.m22 = vector.x;
+            mat.m33 = 1;
+            return mat;
         }
         //
         // Summary:
@@ -79,7 +84,12 @@ namespace CustomMath
         //   vector:
         public static M4x4 Translate(Vec3 vector)
         {
-            throw new NotImplementedException();
+            M4x4 mat = M4x4.identity;
+            mat.m30 = vector.x;
+            mat.m31 = vector.y;
+            mat.m32 = vector.z;
+            mat.m33 = 1;
+            return mat;
         }
         //
         // Summary:
