@@ -304,7 +304,7 @@ namespace CustomMath
         //   b:
         //
         //   t:
-        public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t)
+        public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t) // No funciona
         {
             QuaternionCustom q = new QuaternionCustom(0,0,0,0); // buscar bien como funciona la formula
             if (t < 1)
@@ -339,7 +339,14 @@ namespace CustomMath
         }
         public bool Equals(QuaternionCustom other)
         {
-            throw new NotImplementedException();
+            if (this == other)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public override bool Equals(object other)
         {
