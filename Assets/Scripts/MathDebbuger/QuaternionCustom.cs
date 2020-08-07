@@ -56,7 +56,21 @@ namespace CustomMath
         //
         // Summary:
         //     Returns or sets the euler angle representation of the rotation.
-        public Vector3 eulerAngles { get; set; }
+        //public Vector3 eulerAngles 
+        //{ 
+        //    get 
+        //    { 
+                
+        //    }
+        //    set 
+        //    {
+        //        QuaternionCustom q = QuaternionCustom.Euler(value);
+        //        x = q.x;
+        //        y = q.y;
+        //        z = q.z;
+        //        w = q.w;
+        //    } 
+        //}
         //
         // Summary:
         //     Returns this quaternion with a magnitude of 1 (Read Only).

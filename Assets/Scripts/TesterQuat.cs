@@ -37,7 +37,7 @@ public class TesterQuat : MonoBehaviour
         switch (ejercicios)
         {
             case Ejercicios.uno:
-                target.transform.rotation = Quaternion.Euler(90,newAngle,0);
+                target.transform.rotation = Quaternion.Euler(0,newAngle,0);
                 break;
             case Ejercicios.dos:
                 break;
