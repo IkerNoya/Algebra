@@ -166,13 +166,14 @@ namespace CustomMath
         //   toDirection:
         public static QuaternionCustom FromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
-            QuaternionCustom q;
-            float angle = Vec3.Angle(fromDirection, toDirection);
-            QuaternionCustom q1 = new QuaternionCustom(Mathf.Sin(angle  * 0.5f * Mathf.Deg2Rad), 0, 0, Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
-            QuaternionCustom q2 = new QuaternionCustom(0, Mathf.Sin(angle * 0.5f * Mathf.Deg2Rad), 0, Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
-            QuaternionCustom q3 = new QuaternionCustom(0, 0, Mathf.Sin(angle * 0.5f * Mathf.Deg2Rad), Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad));
-            q = q1 * q2 * q3;
-            return q;
+            Vec3 cross = Vec3.Cross(fromDirection, toDirection);
+            QuaternionCustom result = QuaternionCustom.identity;
+            result.x = cross.x;
+            result.y = cross.y;
+            result.z = cross.z;
+            result.w = Mathf.Sqrt(fromDirection.magnitude * fromDirection.magnitude) * Mathf.Sqrt(toDirection.magnitude * toDirection.magnitude) + Vec3.Dot(fromDirection, toDirection);
+            result.Normalize();
+            return result;
         }
         //
         // Summary:
@@ -260,14 +261,23 @@ namespace CustomMath
         //     The vector that defines in which direction up is.
         public static QuaternionCustom LookRotation(Vec3 forward, Vec3 upwards) // la rotacion tomando en cuenta a lo que estas mirando y cual es su arriba
         {
-            Vec3 cross = Vec3.Cross(forward, upwards);
-            Quaternion result;
-            result.x = cross.x;
-            result.y = cross.y;
-            result.z = cross.z;
-            result.w = Mathf.Sqrt(forward.magnitude * forward.magnitude) * Mathf.Sqrt(upwards.magnitude * upwards.magnitude) + Vec3.Dot(forward, upwards);
-            result.Normalize();
-            return result;
+            QuaternionCustom result;
+            if(forward == Vec3.Zero)
+            {
+                result = QuaternionCustom.identity;
+                return result;
+            }
+            if (forward != upwards)
+            {
+                upwards.Normalize();
+                Vec3 a = forward + upwards * -Vec3.Dot(forward, upwards);
+                QuaternionCustom q = QuaternionCustom.FromToRotation(Vec3.Forward, a);
+                return QuaternionCustom.FromToRotation(a, forward) * q;
+            }
+            else
+            {
+                return QuaternionCustom.FromToRotation(Vec3.Forward, forward);
+            }
         }
 
         //
