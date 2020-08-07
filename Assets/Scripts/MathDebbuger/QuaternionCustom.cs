@@ -260,7 +260,14 @@ namespace CustomMath
         //     The vector that defines in which direction up is.
         public static QuaternionCustom LookRotation(Vec3 forward, Vec3 upwards) // la rotacion tomando en cuenta a lo que estas mirando y cual es su arriba
         {
-            throw new NotImplementedException();
+            Vec3 cross = Vec3.Cross(forward, upwards);
+            Quaternion result;
+            result.x = cross.x;
+            result.y = cross.y;
+            result.z = cross.z;
+            result.w = Mathf.Sqrt(forward.magnitude * forward.magnitude) * Mathf.Sqrt(upwards.magnitude * upwards.magnitude) + Vec3.Dot(forward, upwards);
+            result.Normalize();
+            return result;
         }
 
         //
@@ -339,14 +346,7 @@ namespace CustomMath
         }
         public bool Equals(QuaternionCustom other)
         {
-            if (this == other)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return this == other; 
         }
         public override bool Equals(object other)
         {
@@ -454,21 +454,19 @@ namespace CustomMath
         }
         public static QuaternionCustom operator *(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w);
+            //return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w); 2D
+            return new QuaternionCustom((lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z + lhs.z * rhs.y), // i/x
+                                        (lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x), // j/y    3D
+                                        (lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w), // k/z
+                                        (lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z));//   w
         }
         public static bool operator ==(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            if (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w)
-                return true;
-            else
-                return false;
+            return (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w);
         }
         public static bool operator !=(QuaternionCustom lhs, QuaternionCustom rhs)
         {
-            if (lhs.x != rhs.x || lhs.y != rhs.y || lhs.z != rhs.z || lhs.w != rhs.w)
-                return true;
-            else
-                return false;
+            return (lhs.x != rhs.x || lhs.y != rhs.y || lhs.z != rhs.z || lhs.w != rhs.w);
         }
     }
 }
