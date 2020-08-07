@@ -323,22 +323,36 @@ namespace CustomMath
         //   t:
         public static QuaternionCustom Slerp(QuaternionCustom a, QuaternionCustom b, float t) // No funciona
         {
-            QuaternionCustom q = new QuaternionCustom(0,0,0,0); // buscar bien como funciona la formula
-            if (t < 1)
+            QuaternionCustom q = QuaternionCustom.identity;
+            a.Normalize();
+            b.Normalize();
+            float dot = Quaternion.Dot(a, b);
+            if (dot < 0)
             {
-                float angle = Angle(a, b);
-                QuaternionCustom q1 = new QuaternionCustom(Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad),0,0, Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
-                QuaternionCustom q2 = new QuaternionCustom(0, Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad), 0, Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
-                QuaternionCustom q3 = new QuaternionCustom(0,0, Mathf.Sin(angle * t * 0.5f * Mathf.Deg2Rad), Mathf.Cos(angle * t * 0.5f * Mathf.Deg2Rad));
-                //p = angle * t * a;
-                q = q1 * q2 * q3;
+                a = QuaternionCustom.Inverse(a);
+                dot = -dot;
             }
-            else
+            float max = 0.9995f;
+            if (dot > max)
             {
-                t = 1.0f;
+                QuaternionCustom result = QuaternionCustom.Lerp(a, b, t);
+                result.Normalize();
+                return result;
             }
-            q.Normalize();
-            return q;
+            // si esta dentro del rango (0 a 1 0 0.99995)
+            float angleT_0 = Mathf.Acos(dot);
+            float angleT = angleT_0 * t;
+            float sinT = Mathf.Sin(angleT);
+            float sinT_0 = Mathf.Sin(angleT_0);
+
+            float sin0 = Mathf.Cos(angleT) - dot * sinT / sinT_0;
+            float sin1 = sinT / sinT_0;
+            QuaternionCustom res = QuaternionCustom.identity;
+            res.x = (a.x * sin0) + (b.x * sin1); 
+            res.y = (a.y * sin0) + (b.y * sin1);
+            res.z = (a.z * sin0) + (b.z * sin1);
+            res.w = (a.w * sin0) + (b.w * sin1);
+            return res;
         }
         //
         // Summary:
