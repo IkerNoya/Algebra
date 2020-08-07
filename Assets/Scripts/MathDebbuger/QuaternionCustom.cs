@@ -54,24 +54,29 @@ namespace CustomMath
         //     The identity rotation (Read Only).
         public static QuaternionCustom identity { get { return new QuaternionCustom(0,0,0,1); } }
         //
-        // Summary:
+        //Summary:
         //     Returns or sets the euler angle representation of the rotation.
-        //public Vector3 eulerAngles 
-        //{ 
-        //    get 
-        //    { 
-                
-        //    }
-        //    set 
-        //    {
-        //        QuaternionCustom q = QuaternionCustom.Euler(value);
-        //        x = q.x;
-        //        y = q.y;
-        //        z = q.z;
-        //        w = q.w;
-        //    } 
-        //}
-        //
+        public Vec3 eulerAngles
+        {
+            //heading = y  attitude = z  bank = x
+            get
+            {
+                Vec3 a = Vec3.Zero;
+                a.y = Mathf.Atan2((2 * y * w) - (2 * x * z), 1 - (2 * (y * y)) - 2 * (z * z)) * Mathf.Rad2Deg;
+                a.z = Mathf.Asin(2 * x * y + 2 * z * w) * Mathf.Rad2Deg;
+                a.x = Mathf.Atan2(2 * x * w - 2 * y * z, 1 - 2 * (x * x) - 2 * (z * z)) * Mathf.Rad2Deg;
+                return a;
+            }
+            set
+            {
+                QuaternionCustom q = QuaternionCustom.Euler(value);
+                x = q.x;
+                y = q.y;
+                z = q.z;
+                w = q.w;
+            }
+        }
+
         // Summary:
         //     Returns this quaternion with a magnitude of 1 (Read Only).
         public QuaternionCustom normalized { get { return Normalize(this); } }
@@ -281,10 +286,10 @@ namespace CustomMath
                 result = QuaternionCustom.identity;
                 return result;
             }
-            if (forward != upwards)
+            if (upwards != forward)
             {
                 upwards.Normalize();
-                Vec3 a = forward + upwards * -Vec3.Dot(forward, upwards);
+                Vec3 a = forward + upwards * -Vec3.Dot(forward, upwards);                   // No funciona
                 QuaternionCustom q = QuaternionCustom.FromToRotation(Vec3.Forward, a);
                 return QuaternionCustom.FromToRotation(a, forward) * q;
             }
@@ -518,6 +523,22 @@ namespace CustomMath
             throw new NotImplementedException();
         }
         public static QuaternionCustom operator *(QuaternionCustom lhs, QuaternionCustom rhs)
+        {
+            //return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w); 2D
+            return new QuaternionCustom((lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z + lhs.z * rhs.y), // i/x
+                                        (lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x), // j/y    3D
+                                        (lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w), // k/z
+                                        (lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z));//   w
+        }
+        public static QuaternionCustom operator *(QuaternionCustom lhs, Quaternion rhs)
+        {
+            //return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w); 2D
+            return new QuaternionCustom((lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z + lhs.z * rhs.y), // i/x
+                                        (lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x), // j/y    3D
+                                        (lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w), // k/z
+                                        (lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z));//   w
+        }
+        public static QuaternionCustom operator *(Quaternion lhs, QuaternionCustom rhs)
         {
             //return new QuaternionCustom(lhs.x*rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w); 2D
             return new QuaternionCustom((lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z + lhs.z * rhs.y), // i/x
