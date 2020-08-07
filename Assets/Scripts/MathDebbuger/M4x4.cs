@@ -60,18 +60,17 @@ namespace CustomMath
         public static M4x4 Rotate(QuaternionCustom q)
         {
             M4x4 mat = M4x4.identity;
-            mat.m00 = 1 - 2 * q.y * q.y - 2 * q.z * q.z;
-            mat.m10 = 2 - q.x * q.y - 2 * q.z * q.w;        // x
-            mat.m20 = 1 - 2 * q.y * q.y - 2 * q.z * q.z;
+            mat.m02 = 2.0f * (q.x * q.z) + 2.0f * (q.y * q.w);
+            mat.m12 = 2.0f * (q.y * q.z) - 2.0f * (q.x * q.w);
+            mat.m22 = 1 - 2.0f * (q.x * q.x) - 2.0f * (q.y * q.y);
 
-            mat.m01 = 2 * q.x * q.y + 2 * q.z * q.w;
-            mat.m01 = 1 - 2 * q.x * q.x - 2 * q.z * q.z;        //y
-            mat.m01 = 2 * q.y * q.z - 2 * q.x * q.w;
+            mat.m00 = 1 - 2.0f * (q.y * q.y) - 2.0f * (q.z * q.z);
+            mat.m10 = 2.0f * (q.x * q.y) + 2.0f * (q.z * q.w);
+            mat.m20 = 2.0f * (q.x * q.z) - 2.0f * (q.y * q.w);
 
-            mat.m01 = 2 * q.x * q.z - 2 * q.y * q.w;
-            mat.m01 = 2 * q.y * q.z + 2 * q.x * q.w;        //z
-            mat.m01 = 1 - 2 * q.x * q.x - 2 * q.y * q.y;
-
+            mat.m01 = 2.0f * (q.x * q.y) - 2.0f * (q.z * q.w);
+            mat.m11 = 1 - 2.0f * (q.x * q.x) - 2.0f * (q.z * q.z);
+            mat.m21 = 2.0f * (q.y * q.z) + 2.0f * (q.x * q.w);
             return mat;
         }
         //
@@ -80,12 +79,12 @@ namespace CustomMath
         //
         // Parameters:
         //   vector:
-        public static M4x4 Scale(Vec3 vector)
+        public static M4x4 Scale(Vector3 vector)
         {
             M4x4 mat = M4x4.identity;
             mat.m00 = vector.x;
-            mat.m11 = vector.x;
-            mat.m22 = vector.x;
+            mat.m11 = vector.y;
+            mat.m22 = vector.z;
             mat.m33 = 1;
             return mat;
         }
@@ -95,12 +94,12 @@ namespace CustomMath
         //
         // Parameters:
         //   vector:
-        public static M4x4 Translate(Vec3 vector)
+        public static M4x4 Translate(Vector3 vector)
         {
             M4x4 mat = M4x4.identity;
-            mat.m30 = vector.x;
-            mat.m31 = vector.y;
-            mat.m32 = vector.z;
+            mat.m03 = vector.x;
+            mat.m13 = vector.y;
+            mat.m23 = vector.z;
             mat.m33 = 1;
             return mat;
         }
@@ -114,7 +113,7 @@ namespace CustomMath
         //   q:
         //
         //   s:
-        public static M4x4 TRS(Vec3 pos, QuaternionCustom q, Vec3 s)
+        public static M4x4 TRS(Vector3 pos, QuaternionCustom q, Vector3 s)
         {
             M4x4 trs = M4x4.zero;
             trs = M4x4.Translate(pos) * M4x4.Rotate(q) *  M4x4.Scale(s);
@@ -132,28 +131,28 @@ namespace CustomMath
         }
         public static M4x4 operator *(M4x4 lhs, M4x4 rhs)
         {
-            M4x4 m = new M4x4(Vector4.zero, Vector4.zero, Vector4.zero,Vector4.zero);
-            m.m00 = (lhs.m00 * rhs.m00) + (lhs.m10 * rhs.m01) + (lhs.m20 * rhs.m02) + (lhs.m30 * rhs.m03);
-            m.m10 = (lhs.m00 * rhs.m10) + (lhs.m10 * rhs.m11) + (lhs.m20 * rhs.m12) + (lhs.m30 * rhs.m13);
-            m.m20 = (lhs.m00 * rhs.m20) + (lhs.m10 * rhs.m21) + (lhs.m20 * rhs.m22) + (lhs.m30 * rhs.m23);
-            m.m30 = (lhs.m00 * rhs.m30) + (lhs.m10 * rhs.m31) + (lhs.m20 * rhs.m32) + (lhs.m30 * rhs.m33);
+            M4x4 mat = new M4x4(Vector4.zero, Vector4.zero, Vector4.zero,Vector4.zero);
+            mat.m00 = (lhs.m00 * rhs.m00) + (lhs.m01 * rhs.m10) + (lhs.m02 * rhs.m20) + (lhs.m03 * rhs.m30);
+            mat.m01 = (lhs.m00 * rhs.m01) + (lhs.m01 * rhs.m11) + (lhs.m02 * rhs.m21) + (lhs.m03 * rhs.m31);
+            mat.m02 = (lhs.m00 * rhs.m02) + (lhs.m01 * rhs.m12) + (lhs.m02 * rhs.m22) + (lhs.m03 * rhs.m32);
+            mat.m03 = (lhs.m00 * rhs.m03) + (lhs.m01 * rhs.m13) + (lhs.m02 * rhs.m23) + (lhs.m03 * rhs.m33);
 
-            m.m01 = (lhs.m01 * rhs.m00) + (lhs.m11 * rhs.m01) + (lhs.m21 * rhs.m02) + (lhs.m31 * rhs.m03);
-            m.m11 = (lhs.m01 * rhs.m10) + (lhs.m11 * rhs.m11) + (lhs.m21 * rhs.m12) + (lhs.m31 * rhs.m13);
-            m.m21 = (lhs.m01 * rhs.m20) + (lhs.m11 * rhs.m21) + (lhs.m21 * rhs.m22) + (lhs.m31 * rhs.m23);
-            m.m31 = (lhs.m01 * rhs.m30) + (lhs.m11 * rhs.m31) + (lhs.m21 * rhs.m32) + (lhs.m31 * rhs.m33);
+            mat.m10 = (lhs.m10 * rhs.m00) + (lhs.m11 * rhs.m10) + (lhs.m12 * rhs.m20) + (lhs.m13 * rhs.m30);
+            mat.m11 = (lhs.m10 * rhs.m01) + (lhs.m11 * rhs.m11) + (lhs.m12 * rhs.m21) + (lhs.m13 * rhs.m31);
+            mat.m12 = (lhs.m10 * rhs.m02) + (lhs.m11 * rhs.m12) + (lhs.m12 * rhs.m22) + (lhs.m13 * rhs.m32);
+            mat.m13 = (lhs.m10 * rhs.m03) + (lhs.m11 * rhs.m13) + (lhs.m12 * rhs.m23) + (lhs.m13 * rhs.m33);
 
-            m.m02 = (lhs.m02 * rhs.m00) + (lhs.m12 * rhs.m01) + (lhs.m22 * rhs.m02) + (lhs.m32 * rhs.m03);
-            m.m12 = (lhs.m02 * rhs.m10) + (lhs.m12 * rhs.m11) + (lhs.m22 * rhs.m12) + (lhs.m32 * rhs.m13);
-            m.m22 = (lhs.m02 * rhs.m20) + (lhs.m12 * rhs.m21) + (lhs.m22 * rhs.m22) + (lhs.m32 * rhs.m23);
-            m.m32 = (lhs.m02 * rhs.m30) + (lhs.m12 * rhs.m31) + (lhs.m22 * rhs.m32) + (lhs.m32 * rhs.m33);
+            mat.m20 = (lhs.m20 * rhs.m00) + (lhs.m21 * rhs.m10) + (lhs.m22 * rhs.m20) + (lhs.m23 * rhs.m30);
+            mat.m21 = (lhs.m20 * rhs.m01) + (lhs.m21 * rhs.m11) + (lhs.m22 * rhs.m21) + (lhs.m23 * rhs.m31);
+            mat.m22 = (lhs.m20 * rhs.m02) + (lhs.m21 * rhs.m12) + (lhs.m22 * rhs.m22) + (lhs.m23 * rhs.m32);
+            mat.m23 = (lhs.m20 * rhs.m03) + (lhs.m21 * rhs.m13) + (lhs.m22 * rhs.m23) + (lhs.m23 * rhs.m33);
 
-            m.m03 = (lhs.m03 * rhs.m00) + (lhs.m13 * rhs.m01) + (lhs.m23 * rhs.m02) + (lhs.m33 * rhs.m03);
-            m.m13 = (lhs.m03 * rhs.m10) + (lhs.m13 * rhs.m11) + (lhs.m23 * rhs.m12) + (lhs.m33 * rhs.m13);
-            m.m23 = (lhs.m03 * rhs.m20) + (lhs.m13 * rhs.m21) + (lhs.m23 * rhs.m22) + (lhs.m33 * rhs.m23);
-            m.m33 = (lhs.m03 * rhs.m30) + (lhs.m13 * rhs.m31) + (lhs.m23 * rhs.m32) + (lhs.m33 * rhs.m33);
+            mat.m30 = (lhs.m30 * rhs.m00) + (lhs.m31 * rhs.m10) + (lhs.m32 * rhs.m20) + (lhs.m33 * rhs.m30);
+            mat.m31 = (lhs.m30 * rhs.m01) + (lhs.m31 * rhs.m11) + (lhs.m32 * rhs.m21) + (lhs.m33 * rhs.m31);
+            mat.m32 = (lhs.m30 * rhs.m02) + (lhs.m31 * rhs.m12) + (lhs.m32 * rhs.m22) + (lhs.m33 * rhs.m32);
+            mat.m33 = (lhs.m30 * rhs.m03) + (lhs.m31 * rhs.m13) + (lhs.m32 * rhs.m23) + (lhs.m33 * rhs.m33);
 
-            return m;
+            return mat;
         }
         public static bool operator ==(M4x4 lhs, M4x4 rhs)
         {
